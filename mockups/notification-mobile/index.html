@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Макеты уведомлений — Kassa24 Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --kassa-green: #00B856;
+    --kassa-green-dark: #009A48;
+    --kassa-red: #E53935;
+    --kassa-red-dark: #C62828;
+    --surface: #F5F6F8;
+    --text-primary: #1A1D26;
+    --text-secondary: #5C6170;
+    --text-muted: #8E93A0;
+    --white: #FFFFFF;
+    --border: #E2E4EA;
+    --shadow-card: 0 2px 16px rgba(0,0,0,0.08);
+    --shadow-btn: 0 4px 12px rgba(0,184,86,0.3);
+    --shadow-btn-red: 0 4px 12px rgba(229,57,53,0.3);
+    --radius: 16px;
+    --radius-sm: 12px;
+    --radius-btn: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #E8EAEF;
+    color: var(--text-primary);
+    padding: 32px 16px;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 48px;
+  }
+  .page-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .page-header p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .variants-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .variant-group {
+    width: 100%;
+    max-width: 1400px;
+  }
+  .variant-group h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .variant-group h2 .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: var(--white);
+  }
+  .badge-soft { background: var(--kassa-green); }
+  .badge-hard { background: var(--kassa-red); }
+
+  .variant-group .subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .phones-row {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .phone-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .phone-wrapper .variant-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .phone-wrapper .variant-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    max-width: 300px;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* Phone frame */
+  .phone {
+    width: 320px;
+    height: 640px;
+    background: var(--white);
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15), 0 0 0 2px rgba(0,0,0,0.06);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 44px;
+    padding: 12px 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .status-bar .time { font-size: 14px; font-weight: 700; }
+  .status-icons { display: flex; gap: 4px; align-items: center; }
+  .status-icons svg { width: 16px; height: 16px; }
+
+  /* Dynamic island */
+  .notch {
+    width: 100px;
+    height: 28px;
+    background: #000;
+    border-radius: 20px;
+    margin: 0 auto;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
+  /* Content area */
+  .phone-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  /* ===== SOFT SCREEN (before March 1) ===== */
+  .soft-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px 24px;
+  }
+
+  .soft-screen .close-btn {
+    align-self: flex-end;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .soft-screen .close-btn svg {
+    width: 16px;
+    height: 16px;
+    color: var(--text-secondary);
+  }
+
+  .soft-screen .icon-area {
+    text-align: center;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+  .soft-screen .icon-area .warn-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .soft-screen .icon-area .warn-icon svg {
+    width: 28px;
+    height: 28px;
+    color: #F57C00;
+  }
+
+  .soft-screen .title {
+    font-size: 19px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    flex-shrink: 0;
+  }
+  .soft-screen .body-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+  .soft-screen .body-text strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .soft-screen .free-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    color: #2E7D32;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 10px;
+    margin: 0 auto 20px;
+    flex-shrink: 0;
+  }
+
+  .soft-screen .creds-section {
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+  .soft-screen .creds-section .creds-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+  }
+  .cred-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    border: 1px solid var(--border);
+  }
+  .cred-row:last-child { margin-bottom: 0; }
+  .cred-row .cred-label {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .cred-row .cred-value {
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .cred-row .copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cred-row .copy-btn svg {
+    width: 18px;
+    height: 18px;
+    color: var(--kassa-green);
+  }
+
+  .soft-screen .actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: var(--radius-btn);
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-green {
+    background: var(--kassa-green);
+    color: var(--white);
+    box-shadow: var(--shadow-btn);
+  }
+  .btn-red {
+    background: var(--kassa-red);
+    color: var(--white);
+    box-shadow: var(--shadow-btn-red);
+  }
+
+  .btn-secondary {
+    width: 100%;
+    padding: 13px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-btn);
+    background: var(--white);
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-primary svg, .btn-secondary svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ===== HARD SCREEN (after March 1) ===== */
+  .hard-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, var(--white) 0%, #F8F0F0 100%);
+  }
+  .hard-screen .hero-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 24px;
+    text-align: center;
+  }
+
+  .hard-screen .logo-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--kassa-green), var(--kassa-green-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    box-shadow: 0 6px 20px rgba(0,184,86,0.25);
+  }
+  .hard-screen .logo-icon svg {
+    width: 36px;
+    height: 36px;
+    color: var(--white);
+  }
+
+  .hard-screen .hero-title {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.4px;
+    margin-bottom: 14px;
+  }
+  .hard-screen .hero-subtitle {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 260px;
+  }
+  .hard-screen .hero-subtitle strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .hard-screen .bottom-panel {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .hard-screen .creds-inline {
+    background: rgba(255,255,255,0.8);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 4px;
+  }
+  .hard-screen .creds-inline .creds-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+
+  /* Separator */
+  .section-sep {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+    width: 100%;
+    max-width: 1400px;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .phones-row { gap: 24px; }
+    .phone { width: 290px; height: 600px; }
+    .page-header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Макеты экранов уведомления</h1>
+  <p>Kassa24 Business → Онлайн Касса24. Три варианта текста для каждого состояния.</p>
+</div>
+
+<div class="variants-grid">
+
+  <!-- ============ BEFORE MARCH 1 ============ -->
+  <div class="variant-group">
+    <h2><span class="badge badge-soft">До 1 марта</span> Мягкое уведомление</h2>
+    <p class="subtitle">Показывается при каждом входе. Пользователь может закрыть и продолжить работу.</p>
+
+    <div class="phones-row">
+
+      <!-- Variant A -->
+      <div class="phone-wrapper">
+        <span class="variant-label">Вариант A</span>
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="status-bar">
+            <span class="time">16:56</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0119 12.55M5 12.55a10.94 10.94 0 015.17-2.39M10.71 5.05A16 16 0 0122.56 9M1.42 9a15.91 15.91 0 014.7-2.88M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="1" y="6" width="3" height="12" rx="1"/><rect x="7" y="4" width="3" height="14" rx="1"/><rect x="13" y="2" width="3" height="16" rx="1"/><rect x="19" y="0" width="3" height="18" rx="1" opacity="0.3"/></svg>
+            </div>
+          </div>
+          <div class="phone-content">
+            <div class="soft-screen">
+              <button class="close-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
+              <div class="icon-area">
+                <div class="warn-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+                </div>
+              </div>
+              <div class="title">Приложение Kassa24 Business закрывается 1 марта</div>
+              <div class="body-text">
+                Мы переходим на новое приложение — <strong>Онлайн Касса24</strong>. Все ваши данные, чеки и Z-отчёты сохранятся. Скачайте приложение и войдите с вашим текущим логином и паролем.
+              </div>
+              <div class="free-badge">🎁 Март — полностью бесплатный!</div>
+              <div class="creds-section">
+                <div class="creds-title">Ваши данные для входа</div>
+                <div class="cred-row">
+                  <div><div class="cred-label">Логин</div><div class="cred-value">+7 700 •••• 12</div></div>
+                  <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                </div>
+                <div class="cred-row">
+                  <div><div class="cred-label">Пароль</div><div class="cred-value">••••••••</div></div>
+                  <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn-primary btn-green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Скачать Онлайн Касса24
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="variant-desc">«Забота и выгода» — акцент на сохранности данных и бесплатном месяце</p>
+      </div>
+
+      <!-- Variant B -->
+      <div class="phone-wrapper">
+        <span class="variant-label">Вариант B</span>
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="status-bar">
+            <span class="time">16:56</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0119 12.55M5 12.55a10.94 10.94 0 015.17-2.39M10.71 5.05A16 16 0 0122.56 9M1.42 9a15.91 15.91 0 014.7-2.88M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="1" y="6" width="3" height="12" rx="1"/><rect x="7" y="4" width="3" height="14" rx="1"/><rect x="13" y="2" width="3" height="16" rx="1"/><rect x="19" y="0" width="3" height="18" rx="1" opacity="0.3"/></svg>
+            </div>
+          </div>
+          <div class="phone-content">
+            <div class="soft-screen">
+              <button class="close-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
+              <div class="icon-area">
+                <div class="warn-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+                </div>
+              </div>
+              <div class="title">С 1 марта это приложение перестанет работать</div>
+              <div class="body-text">
+                Переходите на <strong>Онлайн Касса24</strong> — ваши данные уже там, ничего настраивать не нужно. Войдите с тем же логином и паролем. <strong>Первый месяц бесплатно.</strong>
+              </div>
+              <div class="free-badge">🎁 Март — бесплатно!</div>
+              <div class="creds-section">
+                <div class="creds-title">Ваши данные для входа</div>
+                <div class="cred-row">
+                  <div><div class="cred-label">Логин</div><div class="cred-value">+7 700 •••• 12</div></div>
+                  <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                </div>
+                <div class="cred-row">
+                  <div><div class="cred-label">Пароль</div><div class="cred-value">••••••••</div></div>
+                  <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn-primary btn-green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Скачать Онлайн Касса24
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="variant-desc">«Прямо и по делу» — максимально короткий текст, для тех кто не читает</p>
+      </div>
+
+      <!-- Variant C -->
+      <div class="phone-wrapper">
+        <span class="variant-label">Вариант C</span>
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="status-bar">
+            <span class="time">16:56</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0119 12.55M5 12.55a10.94 10.94 0 015.17-2.39M10.71 5.05A16 16 0 0122.56 9M1.42 9a15.91 15.91 0 014.7-2.88M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="1" y="6" width="3" height="12" rx="1"/><rect x="7" y="4" width="3" height="14" rx="1"/><rect x="13" y="2" width="3" height="16" rx="1"/><rect x="19" y="0" width="3" height="18" rx="1" opacity="0.3"/></svg>
+            </div>
+          </div>
+          <div class="phone-content">
+            <div class="soft-screen">
+              <button class="close-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+              </button>
+              <div class="icon-area">
+                <div class="warn-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+                </div>
+              </div>
+              <div class="title">Kassa24 Business закрывается 1 марта</div>
+              <div class="body-text">
+                Ваша касса, чеки и отчёты уже ждут вас в новом приложении <strong>Онлайн Касса24</strong>. Скачайте его, введите ваш логин и пароль — и продолжайте работать. <strong>Март бесплатный!</strong>
+              </div>
+              <div class="free-badge">🎁 Попробуйте бесплатно весь март</div>
+              <div class="creds-section">
+                <div class="creds-title">Ваши данные для входа</div>
+                <div class="cred-row">
+                  <div><div class="cred-label">Логин</div><div class="cred-value">+7 700 •••• 12</div></div>
+                  <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                </div>
+                <div class="cred-row">
+                  <div><div class="cred-label">Пароль</div><div class="cred-value">••••••••</div></div>
+                  <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                </div>
+              </div>
+              <div class="actions">
+                <button class="btn-primary btn-green">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Скачать Онлайн Касса24
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="variant-desc">«Пошаговый» — персонализация, ощущение что переход уже почти случился</p>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ============ AFTER MARCH 1 ============ -->
+  <div class="variant-group">
+    <h2><span class="badge badge-hard">После 1 марта</span> Блокирующий экран</h2>
+    <p class="subtitle">Приложение не работает. Нет кнопки закрыть. Только переход на новое приложение — как у Евразийского банка.</p>
+
+    <div class="phones-row">
+
+      <!-- Hard Variant A -->
+      <div class="phone-wrapper">
+        <span class="variant-label">Вариант A</span>
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="status-bar">
+            <span class="time">16:56</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0119 12.55M5 12.55a10.94 10.94 0 015.17-2.39M10.71 5.05A16 16 0 0122.56 9M1.42 9a15.91 15.91 0 014.7-2.88M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="1" y="6" width="3" height="12" rx="1"/><rect x="7" y="4" width="3" height="14" rx="1"/><rect x="13" y="2" width="3" height="16" rx="1"/><rect x="19" y="0" width="3" height="18" rx="1" opacity="0.3"/></svg>
+            </div>
+          </div>
+          <div class="phone-content">
+            <div class="hard-screen">
+              <div class="hero-area">
+                <div class="logo-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>
+                </div>
+                <div class="hero-title">Kassa24 Business<br>более недоступен</div>
+                <div class="hero-subtitle">Скачайте <strong>Онлайн Касса24</strong> и продолжайте работать с кассой в новом приложении. Все ваши данные сохранены.</div>
+              </div>
+              <div class="bottom-panel">
+                <div class="creds-inline">
+                  <div class="creds-title">Данные для входа</div>
+                  <div class="cred-row">
+                    <div><div class="cred-label">Логин</div><div class="cred-value">+7 700 •••• 12</div></div>
+                    <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                  </div>
+                  <div class="cred-row">
+                    <div><div class="cred-label">Пароль</div><div class="cred-value">••••••••</div></div>
+                    <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                  </div>
+                </div>
+                <button class="btn-primary btn-red">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Скачать Онлайн Касса24
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="variant-desc">Как у Евразийского банка — «более недоступен», минимум текста</p>
+      </div>
+
+      <!-- Hard Variant B -->
+      <div class="phone-wrapper">
+        <span class="variant-label">Вариант B</span>
+        <div class="phone">
+          <div class="notch"></div>
+          <div class="status-bar">
+            <span class="time">16:56</span>
+            <div class="status-icons">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22M16.72 11.06A10.94 10.94 0 0119 12.55M5 12.55a10.94 10.94 0 015.17-2.39M10.71 5.05A16 16 0 0122.56 9M1.42 9a15.91 15.91 0 014.7-2.88M8.53 16.11a6 6 0 016.95 0M12 20h.01"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="1" y="6" width="3" height="12" rx="1"/><rect x="7" y="4" width="3" height="14" rx="1"/><rect x="13" y="2" width="3" height="16" rx="1"/><rect x="19" y="0" width="3" height="18" rx="1" opacity="0.3"/></svg>
+            </div>
+          </div>
+          <div class="phone-content">
+            <div class="hard-screen">
+              <div class="hero-area">
+                <div class="logo-icon" style="background: linear-gradient(135deg, #E53935, #C62828); box-shadow: 0 6px 20px rgba(229,57,53,0.25);">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+                </div>
+                <div class="hero-title">Это приложение<br>больше не работает</div>
+                <div class="hero-subtitle">Для работы с кассой перейдите на <strong>Онлайн Касса24</strong>. Ваши данные, чеки и отчёты сохранены. Войдите с прежним логином и паролем.</div>
+              </div>
+              <div class="bottom-panel">
+                <div class="creds-inline">
+                  <div class="creds-title">Данные для входа</div>
+                  <div class="cred-row">
+                    <div><div class="cred-label">Логин</div><div class="cred-value">+7 700 •••• 12</div></div>
+                    <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                  </div>
+                  <div class="cred-row">
+                    <div><div class="cred-label">Пароль</div><div class="cred-value">••••••••</div></div>
+                    <button class="copy-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
+                  </div>
+                </div>
+                <button class="btn-primary btn-red">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Скачать Онлайн Касса24
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="variant-desc">Более резкий — красная иконка, «больше не работает», акцент на срочность</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

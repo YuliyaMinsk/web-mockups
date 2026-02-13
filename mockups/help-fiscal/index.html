@@ -473,6 +473,78 @@
   .menu-user .name { font-size: 13px; font-weight: 600; }
   .menu-user .role { font-size: 11px; color: var(--text-muted); }
 
+  /* FAB with tooltip (variant 5) */
+  .fab-group {
+    position: absolute;
+    bottom: 16px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    z-index: 5;
+  }
+  .fab-tooltip {
+    background: #333;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 10px;
+    margin-right: -6px;
+    white-space: nowrap;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .fab-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #333;
+  }
+  .fab-close {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .fab-close svg { width: 10px; height: 10px; color: #fff; }
+
+  .fab-v5 {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--cyan);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,188,212,0.4);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .fab-v5 svg { width: 22px; height: 22px; }
+
+  .badge-best {
+    background: #E3F2FD;
+    color: #1565C0;
+  }
+
   /* Responsive */
   @media (max-width: 700px) {
     .phone { width: 280px; height: 610px; }
@@ -668,10 +740,82 @@
   <p class="variant-desc">Всегда видна поверх контента. Максимальная заметность, но может мешать.</p>
 </div>
 
-<!-- ====== VARIANT 4: Side menu ====== -->
+<!-- ====== VARIANT 4: Dismissable FAB ====== -->
 <div class="variant-col">
   <span class="variant-num">Вариант 4</span>
-  <span class="variant-name">Пункт в меню профиля (меню такого у нас пока нет, но можно добавить)</span>
+  <span class="variant-name">FAB с крестиком (скрываемая)</span>
+
+  <div class="phone">
+    <div class="status-bar">
+      <div class="notch"></div>
+      <span>18:27</span>
+      <div class="status-icons">
+        <span>●●●●</span>
+        <span>📶</span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <div class="app-header">
+      <div class="user-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="user-info">
+        <div class="name">Тестовый аккаунт 2<br>(платная касса)</div>
+        <div class="role">Кассир</div>
+      </div>
+      <div class="header-actions">
+        <div class="lang-btn">Рус <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="logout-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg></div>
+      </div>
+    </div>
+
+    <div class="app-content" style="position: relative;">
+      <div class="page-heading">
+        <h2>Выбрать компанию/кассу</h2>
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      </div>
+      <div class="dropdown">Активные <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="company-link">Тестовая компания (для платной кассы)</div>
+      <div class="pay-btn">Выбрать несколько касс для оплаты</div>
+      <div class="kassa-card">
+        <div class="kassa-card-header">
+          <span class="title">Тестовая платная касса</span>
+          <div class="badges"><span class="badge">ЗНМ</span><span class="badge">555783</span></div>
+        </div>
+        <div class="address">Алматы, Тестовая улица</div>
+        <div class="divider"></div>
+        <div class="status-row"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> Касса доступна</div>
+        <div class="pay-link">Оплатить</div>
+        <div class="paid-until">Оплачена до 15.01.2027</div>
+      </div>
+
+      <!-- FAB with tooltip and close -->
+      <div class="fab-group">
+        <div class="fab-tooltip">
+          Нужна помощь?
+          <button class="fab-close highlight-ring" style="position: relative;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+          <span class="annotation" style="position: absolute; top: -24px; right: -2px;"><span class="annotation-arrow">↓</span> Закрыть</span>
+        </div>
+        <div class="fab-v5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-footer">
+      <span style="font-size: 10px; color: #bbb;">↻ Появляется снова при каждом входе</span><br>
+      Онлайн-касса от Kassa24 Business © 2026
+    </div>
+  </div>
+
+  <p class="variant-desc">Кнопка «?» с тултипом «Нужна помощь?». Крестик скрывает на сессию, но при следующем входе появляется снова.</p>
+</div>
+
+<!-- ====== VARIANT 5: Side menu ====== -->
+<div class="variant-col">
+  <span class="variant-num">Вариант 5</span>
+  <span class="variant-name">Пункт в меню профиля</span>
 
   <div class="phone">
     <div class="status-bar">

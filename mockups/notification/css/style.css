@@ -460,14 +460,14 @@ body.cyan .contact-item:hover {
 .tariffs-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    gap: 12px;
     margin-bottom: 24px;
 }
 
 .tariff-card {
     background: #f8fafc;
     border-radius: 12px;
-    padding: 24px 20px;
+    padding: 16px 12px;
     text-align: center;
     position: relative;
     border: 2px solid transparent;
@@ -505,14 +505,14 @@ body.cyan .contact-item:hover {
 }
 
 .tariff-name {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: #1a202c;
     margin-bottom: 12px;
 }
 
 .tariff-price {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
     color: #00ADEE;
     margin-bottom: 4px;
@@ -1220,12 +1220,12 @@ h2 {
     }
 
     .tariffs-grid {
-        grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
 
     .tariff-card {
         padding: 20px 16px;
+        height: 100%;
     }
 
     .tariff-price {

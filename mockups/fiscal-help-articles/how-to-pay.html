@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата онлайн-кассы — Kassa24 Business</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #2d3748;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            font-weight: 400;
+            font-size: 14px;
+            vertical-align: super;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .lang-btn.active {
+            background-color: #00ADEE;
+            color: white;
+        }
+
+        .lang-btn:not(.active) {
+            background-color: white;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #00ADEE;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #718096;
+            margin-bottom: 32px;
+        }
+
+        /* TOC */
+        .toc {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 36px;
+        }
+
+        .toc h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toc-list a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #2d3748;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 4px 0;
+        }
+
+        .toc-list a:hover {
+            color: #00ADEE;
+        }
+
+        .toc-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #00ADEE;
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* Sections */
+        .step-section {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .step-section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #00ADEE;
+            color: white;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .step-description {
+            font-size: 15px;
+            color: #4a5568;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .step-screenshot {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .step-screenshot img {
+            max-width: 340px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .info-box {
+            background: #ebf8ff;
+            border-left: 4px solid #00ADEE;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+            font-size: 14px;
+            color: #2c5282;
+        }
+
+        .info-box.warning {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .steps-inline {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .step-inline {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .step-inline-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #e2e8f0;
+            color: #4a5568;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .step-inline-text {
+            font-size: 15px;
+            color: #4a5568;
+        }
+
+        /* Tariff cards */
+        .tariff-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .tariff-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .tariff-item.highlight {
+            background: #e0f7ff;
+            border-color: #00ADEE;
+        }
+
+        .tariff-name {
+            font-weight: 600;
+            color: #1a202c;
+        }
+
+        .tariff-period {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .tariff-badge {
+            background: #00ADEE;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 32px;
+        }
+
+        .checklist h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 16px;
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dcfce7;
+        }
+
+        .checklist-item .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: #22c55e;
+            color: white;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .checklist-item .content {
+            flex: 1;
+        }
+
+        .checklist-item .label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #166534;
+        }
+
+        .checklist-item .desc {
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .ready-text {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #22c55e;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #a0aec0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+            }
+
+            .container {
+                margin: 20px auto;
+            }
+
+            .card {
+                padding: 24px 16px;
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            h2 {
+                font-size: 17px;
+            }
+
+            .step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .step-screenshot img {
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">kassa<span>24</span>business</div>
+        <div class="lang-switcher">
+            <button class="lang-btn active">Рус</button>
+            <button class="lang-btn">Қаз</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/></svg>
+                Назад
+            </a>
+
+            <h1>Оплата онлайн-кассы</h1>
+            <p class="subtitle">Пошаговая инструкция по продлению тарифа в приложении Онлайн-Касса от Kassa24</p>
+
+            <!-- TOC -->
+            <div class="toc">
+                <h3>Содержание</h3>
+                <ul class="toc-list">
+                    <li><a href="#step1"><span class="toc-num">1</span> Авторизация</a></li>
+                    <li><a href="#step2"><span class="toc-num">2</span> Выбор кассы</a></li>
+                    <li><a href="#step3"><span class="toc-num">3</span> Выбор тарифа</a></li>
+                    <li><a href="#step4"><span class="toc-num">4</span> Переход к проверке</a></li>
+                    <li><a href="#step5"><span class="toc-num">5</span> Проверка данных</a></li>
+                    <li><a href="#step6"><span class="toc-num">6</span> Ввод реквизитов</a></li>
+                    <li><a href="#step7"><span class="toc-num">7</span> Завершение</a></li>
+                </ul>
+            </div>
+
+            <!-- Step 1: Login -->
+            <div class="step-section" id="step1">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h2>Авторизация</h2>
+                </div>
+                <p class="step-description">Войдите в учётную запись, чтобы получить доступ к списку ваших касс.</p>
+                <div class="steps-inline">
+                    <div class="step-inline">
+                        <span class="step-inline-num">1</span>
+                        <span class="step-inline-text">Откройте приложение</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">2</span>
+                        <span class="step-inline-text">Введите ваш <strong>номер телефона</strong> и <strong>пароль</strong></span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">3</span>
+                        <span class="step-inline-text">Нажмите синюю кнопку <strong>«Войти»</strong></span>
+                    </div>
+                </div>
+                <p class="step-description" style="margin-top: 12px; font-size: 13px; color: #718096;">Визуальный ориентир: откроется главное меню со списком компаний.</p>
+                <div class="step-screenshot">
+                    <img src="how-to-pay/pay-01-login.png" alt="Экран авторизации">
+                </div>
+            </div>
+
+            <!-- Step 2: Select cash -->
+            <div class="step-section" id="step2">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h2>Выбор кассы</h2>
+                </div>
+                <p class="step-description">Найдите устройство, подписку которого необходимо продлить.</p>
+                <div class="steps-inline">
+                    <div class="step-inline">
+                        <span class="step-inline-num">1</span>
+                        <span class="step-inline-text">В списке <strong>«Активные»</strong> найдите нужную кассу (ориентируйтесь на название или адрес)</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">2</span>
+                        <span class="step-inline-text">Нажмите на синюю текстовую ссылку <strong>«Оплатить»</strong> под статусом кассы</span>
+                    </div>
+                </div>
+                <p class="step-description" style="margin-top: 12px; font-size: 13px; color: #718096;">Визуальный ориентир: откроется экран «Оплата кассы» с выбором тарифов.</p>
+                <div class="step-screenshot">
+                    <img src="how-to-pay/pay-02-select-cash.png" alt="Выбор кассы для оплаты">
+                </div>
+            </div>
+
+            <!-- Step 3: Tariff -->
+            <div class="step-section" id="step3">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h2>Выбор тарифа</h2>
+                </div>
+                <p class="step-description">Выберите срок действия подписки. В стоимость любого тарифа уже включены услуги ОФД.</p>
+                <p class="step-description">Нажмите на карточку с нужным периодом:</p>
+                <div class="tariff-list">
+                    <div class="tariff-item">
+                        <div>
+                            <span class="tariff-name">Стандарт</span>
+                            <span class="tariff-period"> — 1 месяц</span>
+                        </div>
+                    </div>
+                    <div class="tariff-item highlight">
+                        <div>
+                            <span class="tariff-name">Хит</span>
+                            <span class="tariff-period"> — 3 месяца</span>
+                        </div>
+                        <span class="tariff-badge">Популярный</span>
+                    </div>
+                    <div class="tariff-item">
+                        <div>
+                            <span class="tariff-name">Комфорт</span>
+                            <span class="tariff-period"> — 6 месяцев</span>
+                        </div>
+                    </div>
+                    <div class="tariff-item">
+                        <div>
+                            <span class="tariff-name">Смарт</span>
+                            <span class="tariff-period"> — 12 месяцев</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    Чем длиннее период оплаты — тем ниже ежемесячная абонентская плата. Выбранная карточка подсветится синим цветом.
+                </div>
+                <div class="step-screenshot">
+                    <img src="how-to-pay/pay-03-tariff.png" alt="Выбор тарифа">
+                </div>
+            </div>
+
+            <!-- Step 4: Confirm -->
+            <div class="step-section" id="step4">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h2>Переход к проверке</h2>
+                </div>
+                <p class="step-description">Зафиксируйте выбор тарифа перед переходом к оплате.</p>
+                <div class="steps-inline">
+                    <div class="step-inline">
+                        <span class="step-inline-num">1</span>
+                        <span class="step-inline-text">Проверьте <strong>«Предварительный итог»</strong> в нижней части экрана</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">2</span>
+                        <span class="step-inline-text">Нажмите широкую синюю кнопку <strong>«Продолжить»</strong></span>
+                    </div>
+                </div>
+                <div class="step-screenshot">
+                    <img src="how-to-pay/pay-04-confirm.png" alt="Предварительный итог">
+                </div>
+            </div>
+
+            <!-- Step 5: Verify -->
+            <div class="step-section" id="step5">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h2>Проверка данных</h2>
+                </div>
+                <p class="step-description">Убедитесь, что оплата зачислится на верное устройство.</p>
+                <div class="steps-inline">
+                    <div class="step-inline">
+                        <span class="step-inline-num">1</span>
+                        <span class="step-inline-text">Сверьте название тарифа</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">2</span>
+                        <span class="step-inline-text"><strong>Обязательно сверьте ЗНМ</strong> (заводской номер машины) и номер кассы в строке «Список касс на оплату»</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">3</span>
+                        <span class="step-inline-text">Если данные верны — нажмите синюю кнопку <strong>«Продолжить»</strong></span>
+                    </div>
+                </div>
+                <div class="info-box warning">
+                    ⚠️ Внимание: обязательно сверьте ЗНМ и номер кассы перед оплатой. Система перенаправит вас на защищённую страницу банка.
+                </div>
+                <div class="step-screenshot">
+                    <img src="how-to-pay/pay-05-verify.png" alt="Проверка данных">
+                </div>
+            </div>
+
+            <!-- Step 6: Card -->
+            <div class="step-section" id="step6">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h2>Ввод реквизитов</h2>
+                </div>
+                <p class="step-description">Введите данные банковской карты для списания средств.</p>
+                <div class="steps-inline">
+                    <div class="step-inline">
+                        <span class="step-inline-num">1</span>
+                        <span class="step-inline-text">Введите <strong>номер карты</strong> (16 цифр)</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">2</span>
+                        <span class="step-inline-text">Укажите <strong>срок действия</strong> (MM/YY)</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">3</span>
+                        <span class="step-inline-text">Введите <strong>CVV-код</strong> (3 цифры с оборота карты)</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">4</span>
+                        <span class="step-inline-text">Нажмите кнопку <strong>«Оплатить»</strong></span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    Данные карты передаются в зашифрованном виде. Вы можете сохранить карту для будущих оплат.
+                </div>
+                <p class="step-description" style="margin-top: 12px; font-size: 13px; color: #718096;">Визуальный ориентир: появится экран загрузки обработки платежа.</p>
+                <div class="step-screenshot">
+                    <img src="how-to-pay/pay-06-card.png" alt="Ввод данных карты">
+                </div>
+            </div>
+
+            <!-- Step 7: Success -->
+            <div class="step-section" id="step7">
+                <div class="step-header">
+                    <span class="step-number">7</span>
+                    <h2>Завершение</h2>
+                </div>
+                <p class="step-description">Подтверждение успешной транзакции. Теперь ваша касса активна и готова к работе.</p>
+                <div class="step-screenshot">
+                    <img src="how-to-pay/pay-07-success.png" alt="Оплата прошла успешно">
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="checklist">
+                <h3>📋 Чек-лист оплаты</h3>
+                <div class="checklist-items">
+                    <div class="checklist-item">
+                        <div class="num">1</div>
+                        <div class="content">
+                            <div class="label">Вход</div>
+                            <div class="desc">Логин / Пароль → Войти</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="num">2</div>
+                        <div class="content">
+                            <div class="label">Выбор</div>
+                            <div class="desc">Найти кассу → Нажать «Оплатить»</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="num">3</div>
+                        <div class="content">
+                            <div class="label">Тариф</div>
+                            <div class="desc">Выбрать срок (1 / 3 / 6 / 12 мес) → Продолжить</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="num">4</div>
+                        <div class="content">
+                            <div class="label">Оплата</div>
+                            <div class="desc">Сверить ЗНМ → Ввести данные карты → Оплатить</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ready-text">✓ Тариф активируется мгновенно</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        Онлайн-касса от Kassa24 Business © 2026
+    </footer>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Работа с онлайн кассой — Kassa24 Business</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #2d3748;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            font-weight: 400;
+            font-size: 14px;
+            vertical-align: super;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .lang-btn.active {
+            background-color: #00ADEE;
+            color: white;
+        }
+
+        .lang-btn:not(.active) {
+            background-color: white;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #00ADEE;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #718096;
+            margin-bottom: 32px;
+        }
+
+        /* TOC */
+        .toc {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 36px;
+        }
+
+        .toc h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .toc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toc-list a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #2d3748;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 4px 0;
+        }
+
+        .toc-list a:hover {
+            color: #00ADEE;
+        }
+
+        .toc-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #00ADEE;
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        /* Sections */
+        .step-section {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .step-section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #00ADEE;
+            color: white;
+            border-radius: 50%;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        .step-description {
+            font-size: 15px;
+            color: #4a5568;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .step-screenshot {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .step-screenshot img {
+            max-width: 340px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .info-box {
+            background: #ebf8ff;
+            border-left: 4px solid #00ADEE;
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+            font-size: 14px;
+            color: #2c5282;
+        }
+
+        .info-box.warning {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .steps-inline {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .step-inline {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .step-inline-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #e2e8f0;
+            color: #4a5568;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .step-inline-text {
+            font-size: 15px;
+            color: #4a5568;
+        }
+
+        /* Payment methods badges */
+        .badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #0369a1;
+            font-weight: 500;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 32px;
+        }
+
+        .checklist h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 16px;
+        }
+
+        .checklist-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #dcfce7;
+        }
+
+        .checklist-item .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: #22c55e;
+            color: white;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .checklist-item .content {
+            flex: 1;
+        }
+
+        .checklist-item .label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #166534;
+        }
+
+        .checklist-item .desc {
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .ready-text {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #22c55e;
+        }
+
+        /* Arrow connectors */
+        .checklist-items .checklist-item + .checklist-item::before {
+            content: none;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #a0aec0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+            }
+
+            .container {
+                margin: 20px auto;
+            }
+
+            .card {
+                padding: 24px 16px;
+                border-radius: 0;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            h2 {
+                font-size: 17px;
+            }
+
+            .step-number {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .step-screenshot img {
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">kassa<span>24</span>business</div>
+        <div class="lang-switcher">
+            <button class="lang-btn active">Рус</button>
+            <button class="lang-btn">Қаз</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/></svg>
+                Назад
+            </a>
+
+            <h1>Работа с онлайн кассой</h1>
+            <p class="subtitle">От авторизации до первого чека за 5 минут</p>
+
+            <!-- TOC -->
+            <div class="toc">
+                <h3>Содержание</h3>
+                <ul class="toc-list">
+                    <li><a href="#step1"><span class="toc-num">1</span> Авторизация в системе</a></li>
+                    <li><a href="#step2"><span class="toc-num">2</span> Выбор рабочей кассы</a></li>
+                    <li><a href="#step3"><span class="toc-num">3</span> Открытие смены</a></li>
+                    <li><a href="#step4"><span class="toc-num">4</span> Касса готова к работе</a></li>
+                    <li><a href="#step5"><span class="toc-num">5</span> Настройка для скорости</a></li>
+                    <li><a href="#step6"><span class="toc-num">6</span> Заполнение чека</a></li>
+                    <li><a href="#step7"><span class="toc-num">7</span> Оплата и оформление</a></li>
+                    <li><a href="#step8"><span class="toc-num">8</span> Операция прошла успешно</a></li>
+                    <li><a href="#step9"><span class="toc-num">9</span> Отправка чека клиенту</a></li>
+                    <li><a href="#step10"><span class="toc-num">10</span> Что дальше?</a></li>
+                </ul>
+            </div>
+
+            <!-- Step 1: Login -->
+            <div class="step-section" id="step1">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h2>Авторизация в системе</h2>
+                </div>
+                <div class="steps-inline">
+                    <div class="step-inline">
+                        <span class="step-inline-num">1</span>
+                        <span class="step-inline-text">Введите ваш <strong>номер телефона</strong></span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">2</span>
+                        <span class="step-inline-text">Введите <strong>пароль</strong></span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">3</span>
+                        <span class="step-inline-text">Нажмите синюю кнопку <strong>«Войти»</strong></span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    Забыли пароль? Нажмите ссылку «Забыли пароль?» на экране входа.
+                </div>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/01-login.png" alt="Экран авторизации">
+                </div>
+            </div>
+
+            <!-- Step 2: Select cash register -->
+            <div class="step-section" id="step2">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h2>Выбор рабочей кассы</h2>
+                </div>
+                <p class="step-description">
+                    Выберите торговую точку, в которой вы работаете сегодня. Убедитесь, что статус кассы отмечен зелёным значком «Касса доступна». Нажмите на карточку кассы для входа.
+                </p>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/02-select-cash.png" alt="Выбор кассы">
+                </div>
+            </div>
+
+            <!-- Step 3: Open shift -->
+            <div class="step-section" id="step3">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h2>Открытие смены</h2>
+                </div>
+                <p class="step-description">
+                    Продажи невозможны без открытия фискальной смены. На экране отобразится текущий баланс (0 ₸ при старте). Нажмите кнопку <strong>«Открыть смену»</strong>.
+                </p>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/03-open-shift.png" alt="Открытие смены">
+                </div>
+            </div>
+
+            <!-- Step 4: Ready -->
+            <div class="step-section" id="step4">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h2>Касса готова к работе</h2>
+                </div>
+                <p class="step-description">
+                    Индикатор статуса сменился на зелёный — вы готовы обслуживать клиентов. Нажмите <strong>«Начать выбивать чеки»</strong> для перехода к продажам.
+                </p>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/04-ready.png" alt="Касса готова">
+                </div>
+            </div>
+
+            <!-- Step 5: Simplified mode -->
+            <div class="step-section" id="step5">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h2>Настройка для скорости</h2>
+                </div>
+                <p class="step-description">
+                    Для стандартных продаж используйте упрощённый интерфейс. Включите тумблер <strong>«Упрощённый режим»</strong> в правом верхнем углу экрана продажи.
+                </p>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/05-simplified-mode.png" alt="Упрощённый режим">
+                </div>
+            </div>
+
+            <!-- Step 6: Fill receipt -->
+            <div class="step-section" id="step6">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h2>Заполнение чека (Товар)</h2>
+                </div>
+                <div class="steps-inline">
+                    <div class="step-inline">
+                        <span class="step-inline-num">1</span>
+                        <span class="step-inline-text"><strong>Наименование товара:</strong> введите название (например, «Универсальный товар»)</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">2</span>
+                        <span class="step-inline-text"><strong>Цена:</strong> укажите стоимость товара</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">3</span>
+                        <span class="step-inline-text"><strong>Секция НДС:</strong> выберите при необходимости</span>
+                    </div>
+                </div>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/06-fill-receipt.png" alt="Заполнение чека">
+                </div>
+            </div>
+
+            <!-- Step 7: Payment -->
+            <div class="step-section" id="step7">
+                <div class="step-header">
+                    <span class="step-number">7</span>
+                    <h2>Оплата и оформление</h2>
+                </div>
+                <p class="step-description">Выберите способ оплаты клиента:</p>
+                <div class="badges">
+                    <span class="badge">💵 Наличные</span>
+                    <span class="badge">💳 Карта</span>
+                </div>
+                <p class="step-description" style="margin-top: 12px;">
+                    Нажмите синюю кнопку <strong>«Оформить чек»</strong> для завершения.
+                </p>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/07-payment.png" alt="Оплата и оформление">
+                </div>
+            </div>
+
+            <!-- Step 8: Success -->
+            <div class="step-section" id="step8">
+                <div class="step-header">
+                    <span class="step-number">8</span>
+                    <h2>Операция прошла успешно</h2>
+                </div>
+                <p class="step-description">
+                    Продажа фискализирована. QR-код на экране является официальным цифровым чеком для проверки.
+                </p>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/08-success.png" alt="Операция успешна">
+                </div>
+            </div>
+
+            <!-- Step 9: Send receipt -->
+            <div class="step-section" id="step9">
+                <div class="step-header">
+                    <span class="step-number">9</span>
+                    <h2>Отправка чека клиенту</h2>
+                </div>
+                <p class="step-description">Экономьте бумагу и время — отправьте чек клиенту мгновенно:</p>
+                <div class="steps-inline">
+                    <div class="step-inline">
+                        <span class="step-inline-num">A</span>
+                        <span class="step-inline-text">Выберите <strong>WhatsApp</strong> для отправки в мессенджер</span>
+                    </div>
+                    <div class="step-inline">
+                        <span class="step-inline-num">B</span>
+                        <span class="step-inline-text">Введите <strong>Email</strong> и нажмите «Отправить»</span>
+                    </div>
+                </div>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/09-send-receipt.png" alt="Отправка чека">
+                </div>
+            </div>
+
+            <!-- Step 10: What's next -->
+            <div class="step-section" id="step10">
+                <div class="step-header">
+                    <span class="step-number">10</span>
+                    <h2>Что дальше?</h2>
+                </div>
+                <p class="step-description">
+                    Нажмите <strong>«Новая продажа»</strong>, чтобы мгновенно открыть чистую форму для следующего клиента. Или вернитесь в кассу для просмотра отчётов и настроек.
+                </p>
+                <div class="step-screenshot">
+                    <img src="how-to-use-cash-register/10-whats-next.png" alt="Что дальше">
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="checklist">
+                <h3>📋 Ваш рабочий цикл за 3 шага</h3>
+                <div class="checklist-items">
+                    <div class="checklist-item">
+                        <div class="num">1</div>
+                        <div class="content">
+                            <div class="label">Открыть смену</div>
+                            <div class="desc">Войти → Выбрать кассу → Открыть смену</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="num">2</div>
+                        <div class="content">
+                            <div class="label">Оформить чек</div>
+                            <div class="desc">Ввести товар → Выбрать способ оплаты → Оформить</div>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="num">3</div>
+                        <div class="content">
+                            <div class="label">Отправить чек</div>
+                            <div class="desc">WhatsApp / Email → Новая продажа</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ready-text">Kassa24 Business — просто, удобно, законно ✓</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        Онлайн-касса от Kassa24 Business © 2026
+    </footer>
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справка — Kassa24 Business</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: #2d3748;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            font-weight: 400;
+            font-size: 14px;
+            vertical-align: super;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .lang-btn.active {
+            background-color: #00ADEE;
+            color: white;
+        }
+
+        .lang-btn:not(.active) {
+            background-color: white;
+            color: #333;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            padding: 56px 40px 48px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #a0aec0;
+            max-width: 480px;
+            margin: 0 auto 28px;
+        }
+
+        .search-box {
+            max-width: 520px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            background: white;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #a0aec0;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+        }
+
+        /* Container */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        /* Category section */
+        .category {
+            margin-bottom: 40px;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .category-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .category-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .category-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a202c;
+        }
+
+        /* Article cards */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px 22px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .article-card:hover {
+            border-color: #00ADEE;
+            box-shadow: 0 4px 12px rgba(0, 173, 238, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .article-card .title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a202c;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .article-card .title .arrow {
+            color: #00ADEE;
+            flex-shrink: 0;
+            margin-top: 2px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .article-card:hover .title .arrow {
+            opacity: 1;
+        }
+
+        .article-card .desc {
+            font-size: 13px;
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .article-card .meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .tag.guide {
+            background: #ebf8ff;
+            color: #0369a1;
+        }
+
+        .tag.new {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .tag.faq {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .tag.video {
+            background: #fae8ff;
+            color: #a21caf;
+        }
+
+        .reading-time {
+            font-size: 12px;
+            color: #a0aec0;
+        }
+
+        /* Contact bar */
+        .contact-bar {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 32px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-bar .text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .contact-bar .text h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 4px;
+        }
+
+        .contact-bar .text p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .contact-link.phone {
+            background: #00ADEE;
+            color: white;
+        }
+
+        .contact-link.phone:hover {
+            background: #009bd6;
+        }
+
+        .contact-link.email {
+            background: #f8fafc;
+            color: #2d3748;
+            border: 1px solid #e2e8f0;
+        }
+
+        .contact-link.email:hover {
+            border-color: #00ADEE;
+            color: #00ADEE;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #a0aec0;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+            }
+
+            .hero {
+                padding: 40px 16px 36px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 24px 16px 40px;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .contact-links {
+                width: 100%;
+            }
+
+            .contact-link {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">kassa<span>24</span>business</div>
+        <div class="lang-switcher">
+            <button class="lang-btn active">Рус</button>
+            <button class="lang-btn">Қаз</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Справочный центр</h1>
+        <p>Инструкции и ответы на частые вопросы по работе с Онлайн-Кассой Kassa24</p>
+        <div class="search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" placeholder="Поиск по статьям...">
+        </div>
+    </section>
+
+    <main class="container">
+
+        <!-- Начало работы -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon" style="background: #ebf8ff;">
+                    <svg viewBox="0 0 24 24" fill="#00ADEE"><path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                </div>
+                <h2 class="category-title">Начало работы</h2>
+            </div>
+            <div class="articles-grid">
+                <a href="how-to-use-cash-register.html" class="article-card">
+                    <div class="title">
+                        Работа с онлайн кассой
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">От авторизации до первого чека за 5 минут. Пошаговая инструкция со скриншотами.</div>
+                    <div class="meta">
+                        <span class="tag guide">Инструкция</span>
+                        <span class="reading-time">~3 мин</span>
+                    </div>
+                </a>
+                <a href="how-to-pay.html" class="article-card">
+                    <div class="title">
+                        Оплата и продление тарифа
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Как продлить подписку на кассу через приложение. Выбор тарифа и оплата картой.</div>
+                    <div class="meta">
+                        <span class="tag guide">Инструкция</span>
+                        <span class="reading-time">~2 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Установка приложения
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Скачивание и установка приложения Kassa24 Business на Android, iOS и веб-версию.</div>
+                    <div class="meta">
+                        <span class="tag guide">Инструкция</span>
+                        <span class="reading-time">~1 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Регистрация и первый вход
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Как зарегистрироваться в системе, привязать компанию и настроить кассу.</div>
+                    <div class="meta">
+                        <span class="tag new">Новое</span>
+                        <span class="reading-time">~3 мин</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Работа с чеками -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon" style="background: #f0fdf4;">
+                    <svg viewBox="0 0 24 24" fill="#22c55e"><path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20M9,13V18H7V13H9M15,15V18H13V15H15M11,11V18H13V11H11Z"/></svg>
+                </div>
+                <h2 class="category-title">Работа с чеками</h2>
+            </div>
+            <div class="articles-grid">
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Оформление чека возврата
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Как оформить полный или частичный возврат товара и отправить чек возврата в ОФД.</div>
+                    <div class="meta">
+                        <span class="tag guide">Инструкция</span>
+                        <span class="reading-time">~2 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Отправка чека клиенту
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Отправка фискального чека через WhatsApp, Email или печать на бумажный носитель.</div>
+                    <div class="meta">
+                        <span class="tag guide">Инструкция</span>
+                        <span class="reading-time">~1 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Работа с предчеком и корзиной
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Добавление нескольких товаров, редактирование количества и удаление позиций.</div>
+                    <div class="meta">
+                        <span class="tag guide">Инструкция</span>
+                        <span class="reading-time">~2 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Секции НДС: какую выбрать?
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Разъяснение секций НДС в чеке: «Без НДС», «НДС 12%» и когда какую использовать.</div>
+                    <div class="meta">
+                        <span class="tag faq">Справка</span>
+                        <span class="reading-time">~2 мин</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Смены и отчёты -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon" style="background: #fef3c7;">
+                    <svg viewBox="0 0 24 24" fill="#f59e0b"><path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7M7.5,13.5L9,12L11,14L15.5,9.5L17,11L11,17L7.5,13.5Z"/></svg>
+                </div>
+                <h2 class="category-title">Смены и отчёты</h2>
+            </div>
+            <div class="articles-grid">
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Открытие и закрытие смены
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Фискальная смена: как открыть, закрыть, и что делать, если смена не закрылась вовремя.</div>
+                    <div class="meta">
+                        <span class="tag guide">Инструкция</span>
+                        <span class="reading-time">~2 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        X-отчёт и Z-отчёт
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Как сформировать промежуточный и итоговый отчёты за смену, выручка по способам оплаты.</div>
+                    <div class="meta">
+                        <span class="tag faq">Справка</span>
+                        <span class="reading-time">~2 мин</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Частые вопросы -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon" style="background: #fae8ff;">
+                    <svg viewBox="0 0 24 24" fill="#a855f7"><path d="M15.07,11.25L14.17,12.17C13.45,12.89 13,13.5 13,15H11V14.5C11,13.39 11.45,12.39 12.17,11.67L13.41,10.41C13.78,10.05 14,9.55 14,9C14,7.89 13.1,7 12,7A2,2 0 0,0 10,9H8A4,4 0 0,1 12,5A4,4 0 0,1 16,9C16,9.88 15.64,10.68 15.07,11.25M13,19H11V17H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>
+                </div>
+                <h2 class="category-title">Частые вопросы</h2>
+            </div>
+            <div class="articles-grid">
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Забыли пароль?
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Как восстановить пароль через SMS или обращение в техподдержку.</div>
+                    <div class="meta">
+                        <span class="tag faq">Справка</span>
+                        <span class="reading-time">~1 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Ошибка «Касса недоступна»
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Возможные причины и решения, если касса отображается как недоступная.</div>
+                    <div class="meta">
+                        <span class="tag faq">Справка</span>
+                        <span class="reading-time">~2 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Как сменить кассира?
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Переключение между учётными записями кассиров на одном устройстве.</div>
+                    <div class="meta">
+                        <span class="tag faq">Справка</span>
+                        <span class="reading-time">~1 мин</span>
+                    </div>
+                </a>
+                <a href="#" class="article-card">
+                    <div class="title">
+                        Что такое ОФД и ЗНМ?
+                        <svg class="arrow" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </div>
+                    <div class="desc">Краткий глоссарий терминов: ОФД, ЗНМ, РНМ, фискальный признак и другие.</div>
+                    <div class="meta">
+                        <span class="tag faq">Справка</span>
+                        <span class="reading-time">~3 мин</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Contact bar -->
+        <div class="contact-bar">
+            <div class="text">
+                <h3>Не нашли ответ?</h3>
+                <p>Наша техподдержка работает ежедневно и поможет решить любой вопрос.</p>
+            </div>
+            <div class="contact-links">
+                <a href="tel:+77020750601" class="contact-link phone">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
+                    +7 702 075 06 01
+                </a>
+                <a href="mailto:business@kassa24.kz" class="contact-link email">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/></svg>
+                    business@kassa24.kz
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        Онлайн-касса от Kassa24 Business © 2026
+    </footer>
+</body>
+</html>

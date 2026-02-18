@@ -378,6 +378,46 @@
             color: #22c55e;
         }
 
+        /* Success Message */
+        .success-message {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin: 20px 0;
+        }
+
+        .success-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: #22c55e;
+            border-radius: 50%;
+            margin-bottom: 24px;
+        }
+
+        .success-icon svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .success-message h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 12px;
+        }
+
+        .success-message p {
+            font-size: 16px;
+            color: #718096;
+            line-height: 1.6;
+        }
+
         .footer {
             text-align: center;
             padding: 24px;
@@ -391,7 +431,8 @@
             }
 
             .container {
-                margin: 20px auto;
+                margin: 0;
+                padding: 0;
             }
 
             .card {
@@ -637,8 +678,14 @@
                     <h2>Завершение</h2>
                 </div>
                 <p class="step-description">Подтверждение успешной транзакции. Теперь ваша касса активна и готова к работе.</p>
-                <div class="step-screenshot">
-                    <img src="how-to-pay/pay-07-success.png" alt="Оплата прошла успешно">
+                <div class="success-message">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Оплата прошла успешно</h3>
+                    <p>Теперь ваша касса активна и готова к работе.</p>
                 </div>
             </div>
 

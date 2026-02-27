@@ -17,6 +17,8 @@
     --red-dark: #C62828;
     --orange: #F57C00;
     --orange-light: #FFF3E0;
+    --whatsapp: #25D366;
+    --whatsapp-dark: #128C7E;
     --text: #1A1A1A;
     --text-sec: #777;
     --text-muted: #AAA;
@@ -86,6 +88,164 @@
   .tag-red { background: var(--red); }
   .tag-cyan { background: var(--cyan); }
   .tag-gray { background: #78909C; }
+  .tag-orange { background: var(--orange); }
+
+  /* ===== FREE APP MAIN SCREEN ===== */
+  .free-app-header {
+    padding: 16px 16px 10px;
+    flex-shrink: 0;
+  }
+  .free-app-header .fah-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: 2px;
+  }
+  .free-app-header .fah-name {
+    font-size: 17px; font-weight: 800; line-height: 1.2;
+  }
+  .free-app-header .fah-company {
+    font-size: 11.5px; color: var(--text-sec); margin-top: 2px;
+  }
+  .free-app-header .fah-actions {
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  }
+  .free-app-header .fah-lang {
+    font-size: 12px; font-weight: 700;
+    background: #4A90D9; color: #fff;
+    padding: 4px 10px; border-radius: 6px;
+  }
+  .free-app-header .fah-refresh {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .free-app-header .fah-refresh svg { width: 20px; height: 20px; color: var(--text-muted); }
+
+  .free-card {
+    margin: 0 16px 10px; padding: 14px;
+    background: var(--bg); border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .free-card .fc-row {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .free-card .fc-left {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .free-card .fc-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--surface); display: flex;
+    align-items: center; justify-content: center;
+  }
+  .free-card .fc-icon svg { width: 16px; height: 16px; color: var(--text-sec); }
+  .free-card .fc-label { font-size: 13px; font-weight: 500; }
+  .free-card .fc-value { font-size: 16px; font-weight: 800; }
+  .free-card .fc-sub {
+    font-size: 11px; color: var(--text-sec); margin-top: 8px; line-height: 1.4;
+  }
+  .free-card .fc-btn {
+    font-size: 12px; font-weight: 700;
+    background: var(--green); color: #fff;
+    padding: 6px 14px; border-radius: 8px; border: none;
+  }
+
+  .free-section-title {
+    text-align: center; font-size: 13px;
+    color: var(--text-sec); margin: 6px 16px 10px;
+  }
+  .free-primary-btn {
+    margin: 0 16px 14px; padding: 14px;
+    background: #4A90D9; color: #fff;
+    border: none; border-radius: 12px;
+    font-size: 15px; font-weight: 700;
+    font-family: inherit; width: calc(100% - 32px);
+    text-align: center;
+  }
+  .free-tiles {
+    display: flex; gap: 10px; margin: 0 16px 14px;
+  }
+  .free-tile {
+    flex: 1; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px; text-align: center;
+  }
+  .free-tile .ft-icon {
+    width: 32px; height: 32px; margin: 0 auto 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .free-tile .ft-icon svg { width: 22px; height: 22px; color: #4A90D9; }
+  .free-tile .ft-label { font-size: 12.5px; font-weight: 600; }
+  .free-tile .ft-count {
+    font-size: 12px; font-weight: 700; color: var(--text-sec);
+    display: inline-block; margin-left: 3px;
+  }
+  .free-tile .ft-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--orange); display: inline-block;
+    margin-left: 2px; vertical-align: middle;
+  }
+
+  /* Bottom tab bar */
+  .tab-bar {
+    display: flex; border-top: 1px solid var(--border);
+    padding: 8px 0 6px; flex-shrink: 0; background: #fff;
+  }
+  .tab-item {
+    flex: 1; text-align: center;
+  }
+  .tab-item .tab-icon {
+    width: 22px; height: 22px; margin: 0 auto 3px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tab-item .tab-icon svg { width: 20px; height: 20px; color: var(--text-muted); }
+  .tab-item .tab-label { font-size: 10px; color: var(--text-muted); font-weight: 500; }
+  .tab-item.active .tab-icon svg { color: #4A90D9; }
+  .tab-item.active .tab-label { color: #4A90D9; font-weight: 600; }
+
+  /* ===== PERSISTENT BANNERS ===== */
+  .top-banner {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--red); color: #fff;
+    padding: 10px 14px;
+    flex-shrink: 0;
+  }
+  .top-banner .tb-icon {
+    width: 18px; height: 18px; flex-shrink: 0;
+  }
+  .top-banner .tb-icon svg { width: 18px; height: 18px; color: #fff; }
+  .top-banner .tb-text {
+    flex: 1; font-size: 12px; font-weight: 600; line-height: 1.3;
+  }
+  .top-banner .tb-arrow {
+    flex-shrink: 0;
+  }
+  .top-banner .tb-arrow svg { width: 16px; height: 16px; color: rgba(255,255,255,0.7); }
+
+  .bottom-banner {
+    margin: 0 12px 8px;
+    background: #fff;
+    border: 1.5px solid var(--red);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 4px 16px rgba(229,57,53,0.12);
+    flex-shrink: 0;
+  }
+  .bottom-banner .bb-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .bottom-banner .bb-icon svg { width: 18px; height: 18px; color: var(--red); }
+  .bottom-banner .bb-text { flex: 1; }
+  .bottom-banner .bb-text .bb-title {
+    font-size: 12.5px; font-weight: 700; color: var(--text);
+    line-height: 1.3; margin-bottom: 1px;
+  }
+  .bottom-banner .bb-text .bb-sub {
+    font-size: 11px; color: var(--red); font-weight: 600;
+  }
+  .bottom-banner .bb-arrow { flex-shrink: 0; }
+  .bottom-banner .bb-arrow svg { width: 16px; height: 16px; color: var(--red); }
 
   .phones-row {
     display: flex;
@@ -117,7 +277,7 @@
   /* ===== PHONE FRAME ===== */
   .phone {
     width: 310px;
-    min-height: 640px;
+    min-height: 700px;
     background: var(--bg);
     border-radius: 38px;
     overflow: hidden;
@@ -330,6 +490,73 @@
   }
   .btn-g svg, .btn-r svg { width: 17px; height: 17px; flex-shrink: 0; }
 
+  /* ===== WHATSAPP SUPPORT BLOCK ===== */
+  .wa-support {
+    display: flex; align-items: center; gap: 10px;
+    background: #F0FBF4;
+    border: 1px solid #C8E6C9;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+  .wa-support .wa-icon {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--whatsapp);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .wa-support .wa-icon svg { width: 18px; height: 18px; color: #fff; }
+  .wa-support .wa-text {
+    flex: 1; min-width: 0;
+  }
+  .wa-support .wa-text .wa-q {
+    font-size: 12px; font-weight: 600; color: var(--text);
+    line-height: 1.3; margin-bottom: 2px;
+  }
+  .wa-support .wa-text .wa-num {
+    font-size: 12.5px; font-weight: 700; color: var(--whatsapp-dark);
+    letter-spacing: 0.2px;
+  }
+  .wa-support .wa-arrow {
+    flex-shrink: 0;
+  }
+  .wa-support .wa-arrow svg { width: 16px; height: 16px; color: var(--whatsapp-dark); }
+
+  /* Hard screen WA variant */
+  .wa-support-hard {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid #C8E6C9;
+    border-radius: 10px;
+    padding: 10px 12px;
+    flex-shrink: 0;
+  }
+  .wa-support-hard .wa-icon {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--whatsapp);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .wa-support-hard .wa-icon svg { width: 18px; height: 18px; color: #fff; }
+  .wa-support-hard .wa-text {
+    flex: 1; min-width: 0;
+  }
+  .wa-support-hard .wa-text .wa-q {
+    font-size: 12px; font-weight: 600; color: var(--text);
+    line-height: 1.3; margin-bottom: 2px;
+  }
+  .wa-support-hard .wa-text .wa-num {
+    font-size: 12.5px; font-weight: 700; color: var(--whatsapp-dark);
+    letter-spacing: 0.2px;
+  }
+  .wa-support-hard .wa-arrow {
+    flex-shrink: 0;
+  }
+  .wa-support-hard .wa-arrow svg { width: 16px; height: 16px; color: var(--whatsapp-dark); }
+
   /* ===== HARD SCREEN ===== */
   .hard-screen {
     flex: 1; display: flex; flex-direction: column;
@@ -515,7 +742,7 @@
   }
 
   @media (max-width: 700px) {
-    .phone { width: 280px; min-height: 600px; }
+    .phone { width: 280px; min-height: 660px; }
     .phones-row { gap: 24px; }
     .page-header h1 { font-size: 24px; }
   }
@@ -531,19 +758,19 @@
 <!-- ==================== SECTION 1: NOTIFICATIONS ==================== -->
 <div class="section">
   <div class="section-title"><span class="tag tag-green">Раздел 1</span> Уведомления в бесплатном приложении</div>
-  <p class="section-sub">Экраны показываются при каждом входе в Kassa24 Business. Слева — до 1 марта (можно закрыть), справа — после 1 марта (блокирующий).</p>
+  <p class="section-sub">Экраны показываются при каждом входе в Kassa24 Business. Слева — до 1 апреля (можно закрыть), справа — после 1 апреля (блокирующий).</p>
 
   <div class="phones-row">
 
     <!-- SOFT -->
     <div class="phone-col">
-      <span class="phone-label">До 1 марта — мягкое</span>
+      <span class="phone-label">До 1 апреля — мягкое</span>
       <div class="phone">
         <div class="statusbar"><div class="notch"></div><span>18:27</span><div class="si">●●●● 📶 100%</div></div>
         <div class="notif-screen">
           <button class="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
           <div class="ico"><div class="circle warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg></div></div>
-          <div class="ttl">С 1 марта это приложение перестанет работать</div>
+          <div class="ttl">С 1 апреля это приложение перестанет работать</div>
           <div class="body">Мы переходим на новое приложение — <strong>Онлайн Касса24</strong>. Все ваши данные, чеки и Z-отчёты сохранятся. Скачайте приложение и войдите с вашим текущим логином и паролем.</div>
           <div class="free-tag">🎁 Март — полностью бесплатный!</div>
           <div class="creds">
@@ -553,15 +780,28 @@
           </div>
           <div class="acts">
             <button class="btn-g"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Скачать Онлайн Касса24</button>
+            <!-- WhatsApp support -->
+            <div class="wa-support">
+              <div class="wa-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </div>
+              <div class="wa-text">
+                <div class="wa-q">Есть вопросы по переходу?</div>
+                <div class="wa-num">Напишите нам в WhatsApp</div>
+              </div>
+              <div class="wa-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <p class="phone-note">Кнопка закрыть ✕ в углу. Показывается каждый раз при входе.</p>
+      <p class="phone-note">Кнопка закрыть ✕ в углу. Показывается каждый раз при входе. WhatsApp-контакт перед закрытием.</p>
     </div>
 
     <!-- HARD -->
     <div class="phone-col">
-      <span class="phone-label">После 1 марта — блокирующий</span>
+      <span class="phone-label">После 1 апреля — блокирующий</span>
       <div class="phone">
         <div class="statusbar"><div class="notch"></div><span>18:27</span><div class="si">●●●● 📶 100%</div></div>
         <div class="hard-screen">
@@ -577,10 +817,23 @@
               <div class="cr"><div><div class="lbl">Пароль</div><div class="val">••••••••</div></div><button class="cp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div>
             </div>
             <button class="btn-r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Скачать Онлайн Касса24</button>
+            <!-- WhatsApp support -->
+            <div class="wa-support-hard">
+              <div class="wa-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="color: #fff;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </div>
+              <div class="wa-text">
+                <div class="wa-q">Нужна помощь с переходом?</div>
+                <div class="wa-num">Напишите нам в WhatsApp</div>
+              </div>
+              <div class="wa-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <p class="phone-note">Нет кнопки закрыть. Только переход на новое приложение.</p>
+      <p class="phone-note">Нет кнопки закрыть. Только переход на новое приложение + WhatsApp для помощи.</p>
     </div>
 
   </div>
@@ -588,9 +841,194 @@
 
 <hr class="sep">
 
-<!-- ==================== SECTION 2: FAB HELP ==================== -->
+<!-- ==================== SECTION 2: PERSISTENT BANNER ==================== -->
 <div class="section">
-  <div class="section-title"><span class="tag tag-cyan">Раздел 2</span> Кнопка «Справка» — FAB с крестиком</div>
+  <div class="section-title"><span class="tag tag-orange">Раздел 2</span> Постоянный баннер внутри бесплатного приложения</div>
+  <p class="section-sub">Несворачиваемое напоминание о переходе на главном экране Kassa24 Business. Нажатие на баннер открывает полный экран мягкого уведомления (Раздел 1). Два варианта размещения — выбрать один.</p>
+
+  <div class="phones-row">
+
+    <!-- VARIANT A: TOP BANNER -->
+    <div class="phone-col">
+      <span class="phone-label">Вариант А — Красная плашка сверху</span>
+      <div class="phone">
+        <div class="statusbar"><div class="notch"></div><span>10:27</span><div class="si">●●●● 📶 86%</div></div>
+
+        <!-- persistent top banner -->
+        <div class="top-banner">
+          <div class="tb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg></div>
+          <div class="tb-text">С 1 апреля это приложение перестанет работать. Подробнее →</div>
+          <div class="tb-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+
+        <div class="free-app-header">
+          <div class="fah-top">
+            <div>
+              <div class="fah-name">Тестовый руководитель</div>
+              <div class="fah-company">Тестовая компания (для бесплатн...</div>
+            </div>
+            <div class="fah-actions">
+              <div class="fah-lang">Қаз</div>
+              <div class="fah-refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex: 1; overflow-y: auto;">
+          <div class="free-card">
+            <div class="fc-row">
+              <div class="fc-left">
+                <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg></div>
+                <div class="fc-label">Наличные в кассе</div>
+              </div>
+              <div class="fc-value">630 ₸</div>
+            </div>
+          </div>
+
+          <div class="free-card">
+            <div class="fc-row">
+              <div class="fc-left">
+                <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+                <div class="fc-label">Баланс (QR)</div>
+              </div>
+              <button class="fc-btn">⊕ Подключить</button>
+            </div>
+            <div class="fc-sub">Используйте QR для приема платежей с банковских карт от ваших клиентов</div>
+          </div>
+
+          <div class="free-section-title">Пробейте Ваш первый чек</div>
+          <button class="free-primary-btn">Выбить чек</button>
+
+          <div class="free-tiles">
+            <div class="free-tile">
+              <div class="ft-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg></div>
+              <div class="ft-label">Кассы <span class="ft-count">1</span><span class="ft-dot"></span></div>
+            </div>
+            <div class="free-tile">
+              <div class="ft-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="ft-label">Кассиры <span class="ft-count">1</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-bar">
+          <div class="tab-item active">
+            <div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+            <div class="tab-label">Главная</div>
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg></div>
+            <div class="tab-label">Платежи</div>
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="tab-label">История</div>
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
+            <div class="tab-label">Другое</div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-note">Фиксированная красная строка под статусбаром. Нельзя закрыть. Нажатие → полный экран уведомления.</p>
+    </div>
+
+    <!-- VARIANT B: BOTTOM BANNER -->
+    <div class="phone-col">
+      <span class="phone-label">Вариант Б — Карточка над табами</span>
+      <div class="phone">
+        <div class="statusbar"><div class="notch"></div><span>10:27</span><div class="si">●●●● 📶 86%</div></div>
+
+        <div class="free-app-header">
+          <div class="fah-top">
+            <div>
+              <div class="fah-name">Тестовый руководитель</div>
+              <div class="fah-company">Тестовая компания (для бесплатн...</div>
+            </div>
+            <div class="fah-actions">
+              <div class="fah-lang">Қаз</div>
+              <div class="fah-refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex: 1; overflow-y: auto;">
+          <div class="free-card">
+            <div class="fc-row">
+              <div class="fc-left">
+                <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg></div>
+                <div class="fc-label">Наличные в кассе</div>
+              </div>
+              <div class="fc-value">630 ₸</div>
+            </div>
+          </div>
+
+          <div class="free-card">
+            <div class="fc-row">
+              <div class="fc-left">
+                <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+                <div class="fc-label">Баланс (QR)</div>
+              </div>
+              <button class="fc-btn">⊕ Подключить</button>
+            </div>
+            <div class="fc-sub">Используйте QR для приема платежей с банковских карт от ваших клиентов</div>
+          </div>
+
+          <div class="free-section-title">Пробейте Ваш первый чек</div>
+          <button class="free-primary-btn">Выбить чек</button>
+
+          <div class="free-tiles">
+            <div class="free-tile">
+              <div class="ft-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg></div>
+              <div class="ft-label">Кассы <span class="ft-count">1</span><span class="ft-dot"></span></div>
+            </div>
+            <div class="free-tile">
+              <div class="ft-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="ft-label">Кассиры <span class="ft-count">1</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- persistent bottom banner -->
+        <div class="bottom-banner">
+          <div class="bb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg></div>
+          <div class="bb-text">
+            <div class="bb-title">Мы переходим на Онлайн Касса24</div>
+            <div class="bb-sub">Узнать больше →</div>
+          </div>
+          <div class="bb-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg></div>
+        </div>
+
+        <div class="tab-bar">
+          <div class="tab-item active">
+            <div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+            <div class="tab-label">Главная</div>
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/></svg></div>
+            <div class="tab-label">Платежи</div>
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="tab-label">История</div>
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></div>
+            <div class="tab-label">Другое</div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-note">Карточка над табами. Нельзя закрыть. Нажатие → полный экран уведомления.</p>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ==================== SECTION 3: FAB HELP ==================== -->
+<div class="section">
+  <div class="section-title"><span class="tag tag-cyan">Раздел 3</span> Кнопка «Справка» — FAB с крестиком</div>
   <p class="section-sub">Плавающая кнопка с тултипом «Нужна помощь?» в платном приложении Онлайн Касса24. Закрывается крестиком на сессию, возвращается при следующем входе. Можно полностью отключить в настройках.</p>
 
   <div class="phones-row">
@@ -637,9 +1075,9 @@
 
 <hr class="sep">
 
-<!-- ==================== SECTION 3: MENU + PROFILE + SETTINGS ==================== -->
+<!-- ==================== SECTION 4: MENU + PROFILE + SETTINGS ==================== -->
 <div class="section">
-  <div class="section-title"><span class="tag tag-gray">Раздел 3</span> Боковое меню, профиль и настройки</div>
+  <div class="section-title"><span class="tag tag-gray">Раздел 4</span> Боковое меню, профиль и настройки</div>
   <p class="section-sub">Справка дублируется в боковом меню. Профиль показывает данные пользователя из API. В настройках можно отключить FAB-подсказку.</p>
 
   <div class="phones-row">

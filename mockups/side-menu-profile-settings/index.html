@@ -94,7 +94,7 @@
   .ph svg { width: 18px; height: 18px; color: var(--text); }
   .dd { width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 9px; font-size: 13px; background: var(--bg); display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .dd svg { width: 13px; height: 13px; color: #999; }
-  .cl { text-align: center; padding: 11px; color: var(--cyan); font-size: 12.5px; font-weight: 500; border: 1px solid var(--border); border-radius: 9px; margin-bottom: 10px; max-width: 200px; margin-left: auto; margin-right: auto; line-height: 1.4; }
+  .cl { width: 100%; text-align: center; padding: 11px; color: var(--cyan); font-size: 12.5px; font-weight: 500; border: 1px solid var(--border); border-radius: 9px; margin-bottom: 10px; line-height: 1.4; }
   .pb { width: 100%; padding: 13px; background: var(--cyan); color: #fff; border: none; border-radius: 9px; font-size: 13px; font-weight: 600; font-family: inherit; margin-bottom: 12px; text-align: center; }
   .kc { border: 1px solid var(--border); border-radius: 11px; padding: 12px; margin-bottom: 12px; }
   .kc-h { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3px; }
@@ -375,7 +375,7 @@
         <div class="content">
           <div class="ph"><h2>Выбрать компанию/кассу</h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
           <div class="dd">Активные <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-          <div class="cl">Тестовая компания<br>(для платной кассы)</div>
+          <div class="cl">Тестовая компания (для платной кассы)</div>
           <div class="pb">Выбрать несколько касс для оплаты</div>
           <div class="kc">
             <div class="kc-h"><span class="t">Тестовая платная касса</span><div class="bds"><span class="bd">ЗНМ</span><span class="bd">555783</span></div></div>
@@ -546,7 +546,10 @@
             <div style="width: 280px; background: #fff; padding: 16px; border-radius: 8px;">
               <div style="font-size: 13px; color: var(--text-sec); margin-bottom: 10px;">Список компаний</div>
               <div style="background: var(--cyan); color: #fff; padding: 12px 14px; border-radius: 8px;">
-                <div style="font-size: 13px; font-weight: 600;">Тестовая компания (для бесплатной кассы) <span style="background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 4px;">1 касса</span></div>
+                <div style="font-size: 13px; font-weight: 600; display: flex; align-items: flex-start; gap: 6px;">
+                  <span>Тестовая компания (для бесплатной кассы)</span>
+                  <span style="background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap;">1 касса</span>
+                </div>
                 <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;">Алматы, Тестовая улица, 33, 100</div>
               </div>
             </div>

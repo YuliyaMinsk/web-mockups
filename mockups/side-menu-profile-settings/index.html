@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Боковое меню, профиль и настройки — Онлайн Касса24</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --cyan: #00BCD4;
+    --cyan-light: #E0F7FA;
+    --cyan-dark: #00ACC1;
+    --green: #4CAF50;
+    --text: #1A1A1A;
+    --text-sec: #777;
+    --text-muted: #AAA;
+    --bg: #FFFFFF;
+    --bg-page: #F0F1F4;
+    --border: #E6E6E6;
+    --badge-bg: #F0F0F0;
+    --surface: #F7F7F8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--bg-page);
+    color: var(--text);
+    padding: 40px 16px 60px;
+  }
+
+  .page-header {
+    text-align: center;
+    max-width: 960px;
+    margin: 0 auto 52px;
+  }
+  .page-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .page-header .sub { font-size: 14px; color: var(--text-sec); line-height: 1.5; }
+
+  .section { max-width: 1500px; margin: 0 auto 56px; }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .section-sub { font-size: 13px; color: var(--text-sec); margin-bottom: 24px; line-height: 1.5; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 3px 9px; border-radius: 5px; color: #fff; }
+  .tag-cyan { background: var(--cyan); }
+  .tag-gray { background: #78909C; }
+  .tag-blue { background: #1976D2; }
+
+  .phones-row { display: flex; gap: 36px; flex-wrap: wrap; justify-content: center; }
+  .phone-col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .phone-label { font-size: 13px; font-weight: 700; color: var(--text-sec); text-align: center; }
+  .phone-note { font-size: 11px; color: var(--text-muted); text-align: center; max-width: 290px; line-height: 1.5; }
+
+  /* ===== PHONE FRAME ===== */
+  .phone {
+    width: 310px; min-height: 660px; background: var(--bg);
+    border-radius: 38px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.12), 0 0 0 1.5px rgba(0,0,0,0.04);
+    display: flex; flex-direction: column; position: relative;
+  }
+  .phone.auto-h { min-height: auto; }
+
+  .statusbar {
+    height: 50px; background: #000;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 0 26px 8px; color: #fff; font-size: 13px; font-weight: 600;
+    flex-shrink: 0; position: relative;
+  }
+  .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 95px; height: 25px; background: #000; border-radius: 0 0 16px 16px; }
+  .si { display: flex; gap: 4px; align-items: center; font-size: 12px; }
+
+  .app-bar {
+    display: flex; align-items: center; padding: 10px 16px;
+    border-bottom: 1px solid var(--border); flex-shrink: 0; gap: 8px; min-height: 54px;
+  }
+  .av { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid #ccc; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .av svg { width: 14px; height: 14px; color: #999; }
+  .av.active { border-color: var(--cyan); }
+  .av.active svg { color: var(--cyan); }
+  .ui { flex: 1; min-width: 0; }
+  .ui .n { font-size: 11.5px; font-weight: 600; line-height: 1.3; }
+  .ui .r { font-size: 10px; color: var(--text-muted); }
+  .ha { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+  .lang { font-size: 11px; font-weight: 600; background: var(--badge-bg); border: none; border-radius: 7px; padding: 4px 8px; display: flex; align-items: center; gap: 2px; }
+  .lang svg { width: 9px; height: 9px; color: #999; }
+  .ib { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; background: none; border: none; }
+  .ib svg { width: 17px; height: 17px; color: #999; }
+
+  .content { flex: 1; padding: 14px 16px 0; overflow-y: auto; position: relative; }
+  .ph { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .ph h2 { font-size: 17px; font-weight: 700; }
+  .ph svg { width: 18px; height: 18px; color: var(--text); }
+  .dd { width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 9px; font-size: 13px; background: var(--bg); display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .dd svg { width: 13px; height: 13px; color: #999; }
+  .cl { text-align: center; padding: 11px; color: var(--cyan); font-size: 12.5px; font-weight: 500; border: 1px solid var(--border); border-radius: 9px; margin-bottom: 10px; }
+  .pb { width: 100%; padding: 13px; background: var(--cyan); color: #fff; border: none; border-radius: 9px; font-size: 13px; font-weight: 600; font-family: inherit; margin-bottom: 12px; text-align: center; }
+  .kc { border: 1px solid var(--border); border-radius: 11px; padding: 12px; margin-bottom: 12px; }
+  .kc-h { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3px; }
+  .kc-h .t { font-size: 13px; font-weight: 600; }
+  .kc .bds { display: flex; gap: 3px; }
+  .kc .bd { font-size: 9px; font-weight: 600; background: var(--badge-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-sec); }
+  .kc .addr { font-size: 11px; color: var(--text-sec); margin-bottom: 8px; }
+  .kc .div { height: 1px; background: var(--border); margin-bottom: 8px; }
+  .kc .sr { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+  .kc .sr svg { width: 14px; height: 14px; color: var(--green); }
+  .kc .pl { font-size: 12px; font-weight: 600; color: var(--cyan); margin-bottom: 3px; }
+  .kc .pu { font-size: 10px; color: var(--text-muted); }
+  .foot { padding: 10px; text-align: center; font-size: 10px; color: var(--text-muted); flex-shrink: 0; }
+
+  /* FAB */
+  .fab-wrap { position: absolute; bottom: 14px; right: 12px; display: flex; align-items: center; gap: 0; z-index: 5; }
+  .fab-tip { background: #333; color: #fff; font-size: 11.5px; font-weight: 600; padding: 7px 11px; border-radius: 9px; margin-right: -5px; white-space: nowrap; box-shadow: 0 3px 10px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 7px; position: relative; }
+  .fab-tip::after { content: ''; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 5px solid #333; }
+  .fab-x { width: 15px; height: 15px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; display: flex; align-items: center; justify-content: center; }
+  .fab-x svg { width: 9px; height: 9px; color: #fff; }
+  .fab-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--cyan); color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 14px rgba(0,188,212,0.35); flex-shrink: 0; z-index: 1; }
+  .fab-btn svg { width: 20px; height: 20px; }
+
+  /* Menu */
+  .menu-bg { position: absolute; top: 50px; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.3); z-index: 20; }
+  .menu-panel { position: absolute; top: 0; left: 0; width: 230px; height: 100%; background: #fff; box-shadow: 4px 0 20px rgba(0,0,0,0.08); padding: 16px 0; z-index: 21; }
+  .mu { padding: 6px 18px 14px; border-bottom: 1px solid var(--border); margin-bottom: 6px; }
+  .mu .n { font-size: 12.5px; font-weight: 600; }
+  .mu .r { font-size: 10px; color: var(--text-muted); }
+  .mi { padding: 11px 18px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 10px; color: var(--text); }
+  .mi svg { width: 17px; height: 17px; color: #888; flex-shrink: 0; }
+  .mi.hl { background: var(--cyan-light); color: var(--cyan-dark); font-weight: 600; }
+  .mi.hl svg { color: var(--cyan-dark); }
+  .md { height: 1px; background: var(--border); margin: 4px 0; }
+
+  /* Profile */
+  .profile-screen { flex: 1; display: flex; flex-direction: column; }
+  .profile-bar { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .profile-bar .back { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+  .profile-bar .back svg { width: 18px; height: 18px; color: var(--text); }
+  .profile-bar .ptitle { font-size: 16px; font-weight: 700; }
+  .profile-content { flex: 1; padding: 16px; }
+  .profile-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--surface); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .profile-avatar svg { width: 28px; height: 28px; color: var(--text-muted); }
+  .pf-group { margin-bottom: 16px; }
+  .pf-group .pf-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .pf-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 13px; background: var(--surface); border-radius: 10px; margin-bottom: 5px; }
+  .pf-row .pf-key { font-size: 12px; color: var(--text-sec); }
+  .pf-row .pf-val { font-size: 13px; font-weight: 600; }
+  .pf-row .pf-action { font-size: 11px; font-weight: 600; color: var(--cyan); text-decoration: none; }
+  .pf-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .pf-tag { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: var(--surface); color: var(--text-sec); border: 1px solid var(--border); }
+
+  /* Settings */
+  .settings-screen { flex: 1; display: flex; flex-direction: column; }
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 13px; background: var(--surface); border-radius: 10px; margin-bottom: 5px; }
+  .toggle-row .tl { font-size: 13px; font-weight: 500; }
+  .toggle-row .td { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .toggle { width: 44px; height: 24px; border-radius: 12px; background: var(--cyan); position: relative; flex-shrink: 0; }
+  .toggle .dot { width: 20px; height: 20px; border-radius: 50%; background: #fff; position: absolute; top: 2px; right: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+  .settings-note { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: 8px; padding: 0 4px; }
+
+  .sep { border: none; height: 1px; background: #D8DAE0; margin: 12px 0; width: 100%; max-width: 1500px; margin-left: auto; margin-right: auto; }
+
+  /* ===== WEB FRAME ===== */
+  .web-frame {
+    width: 900px;
+    min-height: 520px;
+    background: var(--bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+  }
+  .web-frame.auto-h { min-height: auto; }
+
+  /* Browser chrome */
+  .browser-bar {
+    height: 36px;
+    background: #F5F5F5;
+    border-bottom: 1px solid #DDD;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .browser-dots { display: flex; gap: 5px; }
+  .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .browser-dots .rd { background: #FF5F57; }
+  .browser-dots .yl { background: #FFBD2E; }
+  .browser-dots .gr { background: #28CA41; }
+  .browser-url {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: var(--text-sec);
+    font-family: monospace;
+  }
+
+  /* Web header */
+  .web-header {
+    background: #2A2A2A;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .web-logo {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .web-logo span { color: var(--cyan); font-size: 11px; vertical-align: super; }
+  .web-user-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .web-lang-btn {
+    font-size: 12px; font-weight: 600;
+    background: var(--cyan); color: #fff;
+    padding: 5px 14px; border-radius: 16px; border: none;
+  }
+  .web-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--cyan);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 13px; font-weight: 700;
+  }
+  .web-user-info {
+    text-align: right;
+  }
+  .web-user-info .wn { font-size: 13px; font-weight: 600; color: #fff; }
+  .web-user-info .wr { font-size: 11px; color: #999; cursor: pointer; }
+
+  /* Web content */
+  .web-content {
+    flex: 1;
+    padding: 28px 32px;
+    position: relative;
+  }
+
+  /* Web dropdown menu */
+  .web-dropdown {
+    position: absolute;
+    top: -8px;
+    right: 32px;
+    width: 260px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+    border: 1px solid var(--border);
+    z-index: 30;
+    overflow: hidden;
+  }
+  .wd-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .wd-header .wdn { font-size: 14px; font-weight: 600; }
+  .wd-header .wdr { font-size: 11px; color: var(--text-muted); }
+  .wd-item {
+    padding: 11px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .wd-item:hover { background: var(--surface); }
+  .wd-item svg { width: 17px; height: 17px; color: #888; flex-shrink: 0; }
+  .wd-item.hl { background: var(--cyan-light); color: var(--cyan-dark); font-weight: 600; }
+  .wd-item.hl svg { color: var(--cyan-dark); }
+  .wd-div { height: 1px; background: var(--border); }
+
+  /* Web profile page */
+  .web-profile-grid {
+    max-width: 580px;
+  }
+  .web-profile-grid h2 {
+    font-size: 20px; font-weight: 700; margin-bottom: 20px;
+  }
+  .wpf-group { margin-bottom: 20px; }
+  .wpf-group .wpf-label { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+  .wpf-row { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; background: var(--surface); border-radius: 10px; margin-bottom: 6px; }
+  .wpf-row .wpf-key { font-size: 13px; color: var(--text-sec); }
+  .wpf-row .wpf-val { font-size: 14px; font-weight: 600; }
+  .wpf-row .wpf-action { font-size: 12px; font-weight: 600; color: var(--cyan); text-decoration: none; cursor: pointer; }
+  .wpf-tags { display: flex; gap: 6px; flex-wrap: wrap; padding: 6px 0; }
+  .wpf-tag { font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 6px; background: var(--surface); color: var(--text-sec); border: 1px solid var(--border); }
+
+  /* Web settings */
+  .web-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--surface); border-radius: 10px; margin-bottom: 6px; }
+  .web-toggle-row .wtl { font-size: 14px; font-weight: 500; }
+  .web-toggle-row .wtd { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .web-footer {
+    padding: 12px 32px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  /* Web FAB (desktop variant — small fixed button) */
+  .web-fab {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    z-index: 5;
+  }
+
+  @media (max-width: 960px) {
+    .web-frame { width: 100%; min-width: 0; }
+  }
+  @media (max-width: 700px) {
+    .phone { width: 280px; min-height: 600px; }
+    .phones-row { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Боковое меню, профиль и настройки</h1>
+  <p class="sub">Онлайн Касса24 — мобильное приложение и веб-версия</p>
+</div>
+
+<!-- ==================== SECTION 1: MOBILE APP ==================== -->
+<div class="section">
+  <div class="section-title"><span class="tag tag-cyan">Приложение</span> Мобильная версия</div>
+  <p class="section-sub">Боковое меню открывается по нажатию на аватар. Профиль и настройки — отдельные экраны. Справка доступна через меню и через FAB-кнопку.</p>
+
+  <div class="phones-row">
+
+    <!-- FAB -->
+    <div class="phone-col">
+      <span class="phone-label">FAB «Нужна помощь?»</span>
+      <div class="phone">
+        <div class="statusbar"><div class="notch"></div><span>18:27</span><div class="si">●●●● 📶 100%</div></div>
+        <div class="app-bar">
+          <div class="av"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="ui"><div class="n">Тестовый аккаунт 2<br>(платная касса)</div><div class="r">Кассир</div></div>
+          <div class="ha">
+            <div class="lang">Рус <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+            <div class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg></div>
+          </div>
+        </div>
+        <div class="content">
+          <div class="ph"><h2>Выбрать компанию/кассу</h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+          <div class="dd">Активные <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+          <div class="cl">Тестовая компания (для платной кассы)</div>
+          <div class="pb">Выбрать несколько касс для оплаты</div>
+          <div class="kc">
+            <div class="kc-h"><span class="t">Тестовая платная касса</span><div class="bds"><span class="bd">ЗНМ</span><span class="bd">555783</span></div></div>
+            <div class="addr">Алматы, Тестовая улица</div>
+            <div class="div"></div>
+            <div class="sr"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> Касса доступна</div>
+            <div class="pl">Оплатить</div>
+            <div class="pu">Оплачена до 15.01.2027</div>
+          </div>
+          <div class="fab-wrap">
+            <div class="fab-tip">Нужна помощь? <button class="fab-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+            <div class="fab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+          </div>
+        </div>
+        <div class="foot">Онлайн-касса от Kassa24 Business © 2026</div>
+      </div>
+      <p class="phone-note">Крестик скрывает на сессию. Возвращается при следующем входе. Отключается в настройках.</p>
+    </div>
+
+    <!-- SIDE MENU -->
+    <div class="phone-col">
+      <span class="phone-label">Боковое меню</span>
+      <div class="phone">
+        <div class="statusbar"><div class="notch"></div><span>18:27</span><div class="si">●●●● 📶 100%</div></div>
+        <div class="app-bar" style="z-index: 22;">
+          <div class="av active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div class="ui"><div class="n">Тестовый аккаунт 2<br>(платная касса)</div><div class="r">Кассир</div></div>
+          <div class="ha">
+            <div class="lang">Рус <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+            <div class="ib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg></div>
+          </div>
+        </div>
+        <div style="position: relative; flex: 1; overflow: hidden;">
+          <div class="menu-bg"></div>
+          <div class="menu-panel">
+            <div class="mu"><div class="n">Тестовый аккаунт 2</div><div class="r">Кассир</div></div>
+            <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Профиль</div>
+            <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12.22 2h-.44a2 2 0 00-2 2v.18a2 2 0 01-1 1.73l-.43.25a2 2 0 01-2 0l-.15-.08a2 2 0 00-2.73.73l-.22.38a2 2 0 00.73 2.73l.15.1a2 2 0 011 1.72v.51a2 2 0 01-1 1.74l-.15.09a2 2 0 00-.73 2.73l.22.38a2 2 0 002.73.73l.15-.08a2 2 0 012 0l.43.25a2 2 0 011 1.73V20a2 2 0 002 2h.44a2 2 0 002-2v-.18a2 2 0 011-1.73l.43-.25a2 2 0 012 0l.15.08a2 2 0 002.73-.73l.22-.39a2 2 0 00-.73-2.73l-.15-.08a2 2 0 01-1-1.74v-.5a2 2 0 011-1.74l.15-.09a2 2 0 00.73-2.73l-.22-.38a2 2 0 00-2.73-.73l-.15.08a2 2 0 01-2 0l-.43-.25a2 2 0 01-1-1.73V4a2 2 0 00-2-2z"/><circle cx="12" cy="12" r="3"/></svg> Настройки</div>
+            <div class="md"></div>
+            <div class="mi hl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg> Справка</div>
+            <div class="md"></div>
+            <div class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg> Выйти</div>
+          </div>
+          <div class="content" style="filter: blur(1px); opacity: 0.3;">
+            <div class="ph"><h2>Выбрать компанию/кассу</h2></div>
+            <div class="dd">Активные</div>
+            <div class="cl">Тестовая компания</div>
+            <div class="pb">Выбрать несколько касс для оплаты</div>
+          </div>
+        </div>
+        <div class="foot" style="opacity: 0.3;">Онлайн-касса от Kassa24 Business © 2026</div>
+      </div>
+      <p class="phone-note">Открывается по нажатию на аватар.</p>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="phone-col">
+      <span class="phone-label">Профиль</span>
+      <div class="phone">
+        <div class="statusbar"><div class="notch"></div><span>18:27</span><div class="si">●●●● 📶 100%</div></div>
+        <div class="profile-screen">
+          <div class="profile-bar">
+            <div class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+            <span class="ptitle">Профиль</span>
+          </div>
+          <div class="profile-content">
+            <div class="profile-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="pf-group">
+              <div class="pf-label">Аккаунт</div>
+              <div class="pf-row"><div><div class="pf-key">Наименование</div><div class="pf-val">Тестовый аккаунт 2 (платная касса)</div></div></div>
+              <div class="pf-row"><div><div class="pf-key">БИН</div><div class="pf-val">123456789012</div></div></div>
+            </div>
+            <div class="pf-group">
+              <div class="pf-label">Авторизация</div>
+              <div class="pf-row"><div><div class="pf-key">Телефон (логин)</div><div class="pf-val">+7 700 355 55 56</div></div></div>
+              <div class="pf-row" style="align-items: center;">
+                <div><div class="pf-key">Пароль</div><div class="pf-val">••••••••</div></div>
+                <a href="#" class="pf-action">Изменить →</a>
+              </div>
+            </div>
+            <div class="pf-group">
+              <div class="pf-label">Группы пользователя</div>
+              <div class="pf-tags">
+                <span class="pf-tag">admin</span>
+                <span class="pf-tag">merchant</span>
+                <span class="pf-tag">cashier</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="foot">Онлайн-касса от Kassa24 Business © 2026</div>
+      </div>
+      <p class="phone-note">Все поля только для чтения. «Изменить пароль» → переход в личный кабинет.</p>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="phone-col">
+      <span class="phone-label">Настройки</span>
+      <div class="phone auto-h" style="min-height: 480px;">
+        <div class="statusbar"><div class="notch"></div><span>18:27</span><div class="si">●●●● 📶 100%</div></div>
+        <div class="settings-screen">
+          <div class="profile-bar">
+            <div class="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></div>
+            <span class="ptitle">Настройки</span>
+          </div>
+          <div class="profile-content">
+            <div class="pf-group">
+              <div class="pf-label">Подсказки</div>
+              <div class="toggle-row">
+                <div><div class="tl">Показывать «Нужна помощь?»</div><div class="td">Плавающая кнопка справки при входе</div></div>
+                <div class="toggle"><div class="dot"></div></div>
+              </div>
+              <p class="settings-note">Когда включено, подсказка появляется при каждом входе. Крестик скрывает на время сессии.</p>
+            </div>
+            <div class="pf-group">
+              <div class="pf-label">Язык</div>
+              <div class="toggle-row">
+                <div><div class="tl">Русский</div></div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="foot">Онлайн-касса от Kassa24 Business © 2026</div>
+      </div>
+      <p class="phone-note">Тоггл для отключения FAB. Справка через меню остаётся.</p>
+    </div>
+
+  </div>
+</div>
+
+<hr class="sep">
+
+<!-- ==================== SECTION 2: WEB VERSION ==================== -->
+<div class="section">
+  <div class="section-title"><span class="tag tag-blue">Веб</span> Веб-версия (fiscal.kassa24.kz)</div>
+  <p class="section-sub">Аналогичная функциональность в веб-интерфейсе. Меню открывается по клику на имя/аватар в шапке. Профиль и настройки — отдельные страницы.</p>
+
+  <div class="phones-row">
+
+    <!-- WEB: Main + FAB -->
+    <div class="phone-col">
+      <span class="phone-label">Главный экран + FAB</span>
+      <div class="web-frame" style="min-height: 460px;">
+        <div class="browser-bar">
+          <div class="browser-dots"><span class="rd"></span><span class="yl"></span><span class="gr"></span></div>
+          <div class="browser-url">fiscal.kassa24.kz/www/comps</div>
+        </div>
+        <div class="web-header">
+          <div class="web-logo">kassa<span>24</span>business</div>
+          <div class="web-user-area">
+            <div class="web-lang-btn">Рус</div>
+            <div class="web-avatar">K</div>
+            <div class="web-user-info">
+              <div class="wn">Тестовый аккаунт 1</div>
+              <div class="wr">Выйти</div>
+            </div>
+          </div>
+        </div>
+        <div class="web-content" style="min-height: 340px;">
+          <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 20px;">Выбрать компанию/кассу</h2>
+          <div style="display: flex; gap: 20px;">
+            <div style="width: 280px;">
+              <div style="font-size: 13px; color: var(--text-sec); margin-bottom: 10px;">Список компаний</div>
+              <div style="background: var(--cyan); color: #fff; padding: 12px 14px; border-radius: 8px;">
+                <div style="font-size: 13px; font-weight: 600;">Тестовая компания (для бесплатной кассы) <span style="background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 4px;">1 касса</span></div>
+                <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;">Алматы, Тестовая улица, 33, 100</div>
+              </div>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 12px; color: var(--text-sec); margin-bottom: 10px;">Кассы Тестовая компания <span style="color: var(--cyan); font-weight: 600; cursor: pointer;">Выбрать несколько касс для оплаты</span></div>
+              <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span style="font-size: 11px; background: var(--badge-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-sec);">ЗНМ</span>
+                  <span style="font-size: 11px; background: var(--badge-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-sec);">555784</span>
+                  <span style="font-size: 13px; font-weight: 600;">Тестовая бесплатная касса</span>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 12px; color: var(--green); font-weight: 500;">✓ Касса доступна</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Бесплатная касса</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Web FAB -->
+          <div class="web-fab">
+            <div class="fab-tip">Нужна помощь? <button class="fab-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div>
+            <div class="fab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+          </div>
+        </div>
+        <div class="web-footer">Онлайн-касса от Kassa24 Business © 2026</div>
+      </div>
+      <p class="phone-note">FAB в правом нижнем углу страницы, поведение как в приложении.</p>
+    </div>
+  </div>
+
+  <div style="height: 32px;"></div>
+
+  <div class="phones-row">
+
+    <!-- WEB: Dropdown menu -->
+    <div class="phone-col">
+      <span class="phone-label">Выпадающее меню</span>
+      <div class="web-frame auto-h" style="min-height: 380px;">
+        <div class="browser-bar">
+          <div class="browser-dots"><span class="rd"></span><span class="yl"></span><span class="gr"></span></div>
+          <div class="browser-url">fiscal.kassa24.kz/www/comps</div>
+        </div>
+        <div class="web-header">
+          <div class="web-logo">kassa<span>24</span>business</div>
+          <div class="web-user-area">
+            <div class="web-lang-btn">Рус</div>
+            <div class="web-avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--cyan);">K</div>
+            <div class="web-user-info">
+              <div class="wn">Тестовый аккаунт 1 ▾</div>
+              <div class="wr">Выйти</div>
+            </div>
+          </div>
+        </div>
+        <div class="web-content" style="min-height: 260px;">
+          <div class="web-dropdown">
+            <div class="wd-header"><div class="wdn">Тестовый аккаунт 1</div><div class="wdr">Кассир</div></div>
+            <div class="wd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Профиль</div>
+            <div class="wd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12.22 2h-.44a2 2 0 00-2 2v.18a2 2 0 01-1 1.73l-.43.25a2 2 0 01-2 0l-.15-.08a2 2 0 00-2.73.73l-.22.38a2 2 0 00.73 2.73l.15.1a2 2 0 011 1.72v.51a2 2 0 01-1 1.74l-.15.09a2 2 0 00-.73 2.73l.22.38a2 2 0 002.73.73l.15-.08a2 2 0 012 0l.43.25a2 2 0 011 1.73V20a2 2 0 002 2h.44a2 2 0 002-2v-.18a2 2 0 011-1.73l.43-.25a2 2 0 012 0l.15.08a2 2 0 002.73-.73l.22-.39a2 2 0 00-.73-2.73l-.15-.08a2 2 0 01-1-1.74v-.5a2 2 0 011-1.74l.15-.09a2 2 0 00.73-2.73l-.22-.38a2 2 0 00-2.73-.73l-.15.08a2 2 0 01-2 0l-.43-.25a2 2 0 01-1-1.73V4a2 2 0 00-2-2z"/><circle cx="12" cy="12" r="3"/></svg> Настройки</div>
+            <div class="wd-div"></div>
+            <div class="wd-item hl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg> Справка</div>
+            <div class="wd-div"></div>
+            <div class="wd-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg> Выйти</div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-note">Открывается по клику на имя/аватар в шапке. Заменяет текущий «Выйти».</p>
+    </div>
+
+    <!-- WEB: Profile -->
+    <div class="phone-col">
+      <span class="phone-label">Профиль</span>
+      <div class="web-frame auto-h" style="min-height: 420px;">
+        <div class="browser-bar">
+          <div class="browser-dots"><span class="rd"></span><span class="yl"></span><span class="gr"></span></div>
+          <div class="browser-url">fiscal.kassa24.kz/www/profile</div>
+        </div>
+        <div class="web-header">
+          <div class="web-logo">kassa<span>24</span>business</div>
+          <div class="web-user-area">
+            <div class="web-lang-btn">Рус</div>
+            <div class="web-avatar">K</div>
+            <div class="web-user-info">
+              <div class="wn">Тестовый аккаунт 1</div>
+              <div class="wr">Выйти</div>
+            </div>
+          </div>
+        </div>
+        <div class="web-content">
+          <div class="web-profile-grid">
+            <h2>Профиль</h2>
+            <div class="wpf-group">
+              <div class="wpf-label">Аккаунт</div>
+              <div class="wpf-row"><div><div class="wpf-key">Наименование</div><div class="wpf-val">Тестовый аккаунт 1 (бесплатная касса)</div></div></div>
+              <div class="wpf-row"><div><div class="wpf-key">БИН</div><div class="wpf-val">123456789012</div></div></div>
+            </div>
+            <div class="wpf-group">
+              <div class="wpf-label">Авторизация</div>
+              <div class="wpf-row"><div><div class="wpf-key">Телефон (логин)</div><div class="wpf-val">+7 700 355 55 56</div></div></div>
+              <div class="wpf-row" style="align-items: center;">
+                <div><div class="wpf-key">Пароль</div><div class="wpf-val">••••••••</div></div>
+                <a class="wpf-action">Изменить →</a>
+              </div>
+            </div>
+            <div class="wpf-group">
+              <div class="wpf-label">Группы пользователя</div>
+              <div class="wpf-tags">
+                <span class="wpf-tag">admin</span>
+                <span class="wpf-tag">merchant</span>
+                <span class="wpf-tag">cashier</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="web-footer">Онлайн-касса от Kassa24 Business © 2026</div>
+      </div>
+      <p class="phone-note">Все поля только для чтения. «Изменить пароль» → переход в личный кабинет.</p>
+    </div>
+
+    <!-- WEB: Settings -->
+    <div class="phone-col">
+      <span class="phone-label">Настройки</span>
+      <div class="web-frame auto-h" style="min-height: 340px;">
+        <div class="browser-bar">
+          <div class="browser-dots"><span class="rd"></span><span class="yl"></span><span class="gr"></span></div>
+          <div class="browser-url">fiscal.kassa24.kz/www/settings</div>
+        </div>
+        <div class="web-header">
+          <div class="web-logo">kassa<span>24</span>business</div>
+          <div class="web-user-area">
+            <div class="web-lang-btn">Рус</div>
+            <div class="web-avatar">K</div>
+            <div class="web-user-info">
+              <div class="wn">Тестовый аккаунт 1</div>
+              <div class="wr">Выйти</div>
+            </div>
+          </div>
+        </div>
+        <div class="web-content">
+          <div class="web-profile-grid">
+            <h2>Настройки</h2>
+            <div class="wpf-group">
+              <div class="wpf-label">Подсказки</div>
+              <div class="web-toggle-row">
+                <div><div class="wtl">Показывать «Нужна помощь?»</div><div class="wtd">Плавающая кнопка справки при входе</div></div>
+                <div class="toggle"><div class="dot"></div></div>
+              </div>
+              <p class="settings-note">Когда включено, подсказка появляется при каждом входе. Крестик скрывает на время сессии.</p>
+            </div>
+            <div class="wpf-group">
+              <div class="wpf-label">Язык</div>
+              <div class="web-toggle-row">
+                <div><div class="wtl">Русский</div></div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="web-footer">Онлайн-касса от Kassa24 Business © 2026</div>
+      </div>
+      <p class="phone-note">Тоггл для отключения FAB. Справка через меню остаётся.</p>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

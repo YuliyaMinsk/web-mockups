@@ -16,10 +16,11 @@
     --text-sec: #777;
     --text-muted: #AAA;
     --bg: #FFFFFF;
-    --bg-page: #F0F1F4;
+    --bg-page: rgb(245 245 245 / var(--tw-bg-opacity, 1));
     --border: #E6E6E6;
     --badge-bg: #F0F0F0;
     --surface: #F7F7F8;
+    --tw-bg-opacity: 1;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -93,7 +94,7 @@
   .ph svg { width: 18px; height: 18px; color: var(--text); }
   .dd { width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 9px; font-size: 13px; background: var(--bg); display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .dd svg { width: 13px; height: 13px; color: #999; }
-  .cl { text-align: center; padding: 11px; color: var(--cyan); font-size: 12.5px; font-weight: 500; border: 1px solid var(--border); border-radius: 9px; margin-bottom: 10px; }
+  .cl { text-align: center; padding: 11px; color: var(--cyan); font-size: 12.5px; font-weight: 500; border: 1px solid var(--border); border-radius: 9px; margin-bottom: 10px; max-width: 200px; margin-left: auto; margin-right: auto; line-height: 1.4; }
   .pb { width: 100%; padding: 13px; background: var(--cyan); color: #fff; border: none; border-radius: 9px; font-size: 13px; font-weight: 600; font-family: inherit; margin-bottom: 12px; text-align: center; }
   .kc { border: 1px solid var(--border); border-radius: 11px; padding: 12px; margin-bottom: 12px; }
   .kc-h { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 3px; }
@@ -212,35 +213,46 @@
     font-weight: 700;
     color: #fff;
   }
-  .web-logo span { color: var(--cyan); font-size: 11px; vertical-align: super; }
+  .web-logo sup { color: var(--cyan); font-size: 10px; }
   .web-user-area {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
   }
-  .web-lang-btn {
-    font-size: 12px; font-weight: 600;
-    background: var(--cyan); color: #fff;
-    padding: 5px 14px; border-radius: 16px; border: none;
+  /* Рус / Қаз toggle pill */
+  .web-lang-toggle {
+    display: flex;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid var(--cyan);
+  }
+  .web-lang-toggle .wlt {
+    font-size: 12px; font-weight: 700;
+    padding: 4px 14px;
+    border: none; cursor: pointer;
+    font-family: inherit;
+  }
+  .web-lang-toggle .wlt.active { background: var(--cyan); color: #fff; }
+  .web-lang-toggle .wlt.inactive { background: transparent; color: #ccc; }
+  .web-user-block {
+    display: flex; align-items: center; gap: 8px;
   }
   .web-avatar {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: var(--cyan);
+    width: 30px; height: 30px;
     display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
   }
-  .web-user-info {
-    text-align: right;
-  }
-  .web-user-info .wn { font-size: 13px; font-weight: 600; color: #fff; }
-  .web-user-info .wr { font-size: 11px; color: #999; cursor: pointer; }
+  .web-avatar svg { width: 20px; height: 20px; color: #fff; }
+  .web-user-info { text-align: left; }
+  .web-user-info .wn { font-size: 13px; font-weight: 600; color: #fff; max-width: 200px; white-space: normal; line-height: 1.3; }
+  .web-user-info .wr { font-size: 13px; color: #fff; cursor: pointer; }
 
   /* Web content */
   .web-content {
     flex: 1;
     padding: 28px 32px;
     position: relative;
+    background: rgb(245 245 245 / var(--tw-bg-opacity, 1));
   }
 
   /* Web dropdown menu */
@@ -281,6 +293,11 @@
   /* Web profile page */
   .web-profile-grid {
     max-width: 580px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
   .web-profile-grid h2 {
     font-size: 20px; font-weight: 700; margin-bottom: 20px;
@@ -304,8 +321,8 @@
     text-align: center;
     font-size: 11px;
     color: var(--text-muted);
-    border-top: 1px solid var(--border);
     flex-shrink: 0;
+    background: rgb(245 245 245 / var(--tw-bg-opacity, 1));
   }
 
   /* Web FAB (desktop variant — small fixed button) */
@@ -358,7 +375,7 @@
         <div class="content">
           <div class="ph"><h2>Выбрать компанию/кассу</h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
           <div class="dd">Активные <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
-          <div class="cl">Тестовая компания (для платной кассы)</div>
+          <div class="cl">Тестовая компания<br>(для платной кассы)</div>
           <div class="pb">Выбрать несколько касс для оплаты</div>
           <div class="kc">
             <div class="kc-h"><span class="t">Тестовая платная касса</span><div class="bds"><span class="bd">ЗНМ</span><span class="bd">555783</span></div></div>
@@ -508,39 +525,50 @@
           <div class="browser-url">fiscal.kassa24.kz/www/comps</div>
         </div>
         <div class="web-header">
-          <div class="web-logo">kassa<span>24</span>business</div>
+          <div class="web-logo">kassa<sup>24</sup>business</div>
           <div class="web-user-area">
-            <div class="web-lang-btn">Рус</div>
-            <div class="web-avatar">K</div>
-            <div class="web-user-info">
-              <div class="wn">Тестовый аккаунт 1</div>
-              <div class="wr">Выйти</div>
+            <div class="web-lang-toggle">
+              <button class="wlt active">Рус</button>
+              <button class="wlt inactive">Қаз</button>
+            </div>
+            <div class="web-user-block">
+              <div class="web-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="web-user-info">
+                <div class="wn">Тестовый аккаунт 1 (бесплатная касса)</div>
+                <div class="wr">Выйти</div>
+              </div>
             </div>
           </div>
         </div>
         <div class="web-content" style="min-height: 340px;">
           <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 20px;">Выбрать компанию/кассу</h2>
           <div style="display: flex; gap: 20px;">
-            <div style="width: 280px;">
+            <div style="width: 280px; background: #fff; padding: 16px; border-radius: 8px;">
               <div style="font-size: 13px; color: var(--text-sec); margin-bottom: 10px;">Список компаний</div>
               <div style="background: var(--cyan); color: #fff; padding: 12px 14px; border-radius: 8px;">
                 <div style="font-size: 13px; font-weight: 600;">Тестовая компания (для бесплатной кассы) <span style="background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-left: 4px;">1 касса</span></div>
                 <div style="font-size: 11px; opacity: 0.8; margin-top: 4px;">Алматы, Тестовая улица, 33, 100</div>
               </div>
             </div>
-            <div style="flex: 1;">
-              <div style="font-size: 12px; color: var(--text-sec); margin-bottom: 10px;">Кассы Тестовая компания <span style="color: var(--cyan); font-weight: 600; cursor: pointer;">Выбрать несколько касс для оплаты</span></div>
-              <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px;">
+            <div style="flex: 1; background: #fff; padding: 16px; border-radius: 8px;">
+              <div style="font-size: 12px; color: var(--text-sec); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+                <span>Кассы Тестовая компания</span>
+                <span style="color: var(--cyan); font-weight: 600; cursor: pointer;">Выбрать несколько касс для оплаты</span>
+              </div>
+              <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-size: 11px; background: var(--badge-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-sec);">ЗНМ</span>
-                  <span style="font-size: 11px; background: var(--badge-bg); padding: 2px 6px; border-radius: 4px; color: var(--text-sec);">555784</span>
-                  <span style="font-size: 13px; font-weight: 600;">Тестовая бесплатная касса</span>
+                  <div style="display: inline-flex; border-radius: 4px; overflow: hidden;">
+                    <span style="font-size: 11px; background: #E0E0E0; padding: 3px 7px; color: var(--text); font-weight: 600;">ЗНМ</span>
+                    <span style="font-size: 11px; background: var(--badge-bg); padding: 3px 7px; color: var(--text); font-weight: 600;">555784</span>
+                  </div>
+                  <span style="font-size: 14px; font-weight: 600; color: var(--text);">Тестовая бесплатная касса</span>
                 </div>
                 <div style="text-align: right;">
                   <div style="font-size: 12px; color: var(--green); font-weight: 500;">✓ Касса доступна</div>
-                  <div style="font-size: 11px; color: var(--text-muted);">Бесплатная касса</div>
+                  <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Бесплатная касса</div>
                 </div>
               </div>
+              <div style="font-size: 11px; color: var(--text-sec);">Алматы, Тестовый адрес</div>
             </div>
           </div>
 
@@ -569,13 +597,18 @@
           <div class="browser-url">fiscal.kassa24.kz/www/comps</div>
         </div>
         <div class="web-header">
-          <div class="web-logo">kassa<span>24</span>business</div>
+          <div class="web-logo">kassa<sup>24</sup>business</div>
           <div class="web-user-area">
-            <div class="web-lang-btn">Рус</div>
-            <div class="web-avatar" style="box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--cyan);">K</div>
-            <div class="web-user-info">
-              <div class="wn">Тестовый аккаунт 1 ▾</div>
-              <div class="wr">Выйти</div>
+            <div class="web-lang-toggle">
+              <button class="wlt active">Рус</button>
+              <button class="wlt inactive">Қаз</button>
+            </div>
+            <div class="web-user-block" style="cursor: pointer;">
+              <div class="web-avatar" style="border-color: var(--cyan);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="web-user-info">
+                <div class="wn">Тестовый аккаунт 1 (бесплатная касса) ▾</div>
+                <div class="wr">Выйти</div>
+              </div>
             </div>
           </div>
         </div>
@@ -603,13 +636,18 @@
           <div class="browser-url">fiscal.kassa24.kz/www/profile</div>
         </div>
         <div class="web-header">
-          <div class="web-logo">kassa<span>24</span>business</div>
+          <div class="web-logo">kassa<sup>24</sup>business</div>
           <div class="web-user-area">
-            <div class="web-lang-btn">Рус</div>
-            <div class="web-avatar">K</div>
-            <div class="web-user-info">
-              <div class="wn">Тестовый аккаунт 1</div>
-              <div class="wr">Выйти</div>
+            <div class="web-lang-toggle">
+              <button class="wlt active">Рус</button>
+              <button class="wlt inactive">Қаз</button>
+            </div>
+            <div class="web-user-block">
+              <div class="web-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="web-user-info">
+                <div class="wn">Тестовый аккаунт 1 (бесплатная касса)</div>
+                <div class="wr">Выйти</div>
+              </div>
             </div>
           </div>
         </div>
@@ -653,13 +691,18 @@
           <div class="browser-url">fiscal.kassa24.kz/www/settings</div>
         </div>
         <div class="web-header">
-          <div class="web-logo">kassa<span>24</span>business</div>
+          <div class="web-logo">kassa<sup>24</sup>business</div>
           <div class="web-user-area">
-            <div class="web-lang-btn">Рус</div>
-            <div class="web-avatar">K</div>
-            <div class="web-user-info">
-              <div class="wn">Тестовый аккаунт 1</div>
-              <div class="wr">Выйти</div>
+            <div class="web-lang-toggle">
+              <button class="wlt active">Рус</button>
+              <button class="wlt inactive">Қаз</button>
+            </div>
+            <div class="web-user-block">
+              <div class="web-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+              <div class="web-user-info">
+                <div class="wn">Тестовый аккаунт 1 (бесплатная касса)</div>
+                <div class="wr">Выйти</div>
+              </div>
             </div>
           </div>
         </div>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kassa24 Business - Оплата кассы</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f4f4f4;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .frame-wrapper {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .example-selector {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #37474f;
+    border-top: 3px solid #00b8d9;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 1000;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.2);
+  }
+
+  .example-selector label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    margin-right: 4px;
+  }
+
+  .example-btn {
+    padding: 7px 16px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .example-btn:hover {
+    border-color: #00adee;
+    color: #00adee;
+  }
+
+  .example-btn.active {
+    background: #00adee;
+    border-color: #00adee;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<div class="frame-wrapper">
+  <iframe id="exampleFrame" src="example-1.html"></iframe>
+</div>
+
+<div class="example-selector">
+  <label>Пример:</label>
+  <button class="example-btn active" onclick="showExample(1, this)">1 — Оплачена</button>
+  <button class="example-btn" onclick="showExample(2, this)">2 — Не оплачена</button>
+</div>
+
+<script>
+function showExample(n, btn) {
+  document.getElementById('exampleFrame').src = 'example-' + n + '.html';
+  document.querySelectorAll('.example-btn').forEach(el => el.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>

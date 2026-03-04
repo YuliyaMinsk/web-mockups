@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kassa24 Business - Оплата кассы</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f4f4;
+    --card-bg: #ffffff;
+    --text-primary: #2d2d2d;
+    --text-secondary: #6b7280;
+    --accent: #00adee;
+    --accent-dark: #0091c8;
+    --header-bg: #37474f;
+    --warning-bg: #fef9e7;
+    --warning-text: #7a5900;
+    --info-bg: #e6f6fd;
+    --info-text: #005f80;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding-bottom: 70px;
+  }
+
+  header {
+    background: var(--header-bg);
+    padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { color: white; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; }
+  .logo sup { font-size: 10px; color: var(--accent); vertical-align: super; }
+  .header-right { display: flex; align-items: center; gap: 20px; }
+  .lang-switch { display: flex; background: rgba(255,255,255,0.12); border-radius: 20px; overflow: hidden; }
+  .lang-switch button { padding: 6px 16px; border: none; font-family: inherit; font-size: 13px; cursor: pointer; background: transparent; color: rgba(255,255,255,0.6); }
+  .lang-switch button.active { background: var(--accent); color: white; border-radius: 20px; }
+  .user-info { color: white; font-size: 13px; text-align: right; }
+  .user-info .name { font-weight: 600; }
+  .user-info .logout { color: rgba(255,255,255,0.5); font-size: 12px; cursor: pointer; }
+
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin: 20px 40px; padding: 8px 16px;
+    border: 1px solid #ddd; border-radius: var(--radius);
+    background: white; font-family: inherit; font-size: 14px;
+    color: var(--text-primary); cursor: pointer;
+  }
+
+  main { max-width: 640px; margin: 0 auto; padding: 20px 20px 40px; }
+
+  h1 { text-align: center; font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.02em; }
+
+  .status-bar {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 500; margin-bottom: 24px;
+    background: var(--info-bg); border: 1px solid rgba(0,184,217,0.25); color: var(--info-text);
+  }
+  .status-added { font-weight: 500; }
+
+  .warning-banner {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px; background: var(--warning-bg);
+    border: 1px solid rgba(255,193,7,0.35); border-radius: 8px;
+    margin-bottom: 16px; font-size: 13.5px; color: var(--warning-text); line-height: 1.45;
+  }
+  .warning-banner .warn-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .warning-banner strong { font-weight: 700; }
+
+  .section-label { font-size: 15px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; }
+
+  .tariff-card {
+    background: var(--card-bg); border-radius: var(--radius);
+    padding: 18px 20px; margin-bottom: 8px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 1fr auto; gap: 4px 16px;
+    cursor: pointer; border: 2px solid transparent;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .tariff-card:hover { border-color: var(--accent); box-shadow: 0 2px 8px rgba(0,184,217,0.12); }
+  .tariff-card.selected { border-color: var(--accent); }
+  .tariff-card.selected .tariff-name,
+  .tariff-card.selected .tariff-price,
+  .tariff-card.selected .tariff-period,
+  .tariff-card.selected .tariff-note { color: var(--accent); }
+
+  .tariff-name { font-weight: 700; font-size: 15px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+  .tariff-price { font-weight: 700; font-size: 15px; text-align: right; }
+  .tariff-period { font-size: 13px; color: var(--text-secondary); }
+  .tariff-note { font-size: 13px; color: var(--text-secondary); text-align: right; }
+
+  .period-tag {
+    display: inline-block; padding: 2px 8px;
+    background: rgba(255,193,7,0.15); border-radius: 4px;
+    font-size: 11px; font-weight: 600; color: var(--warning-text);
+  }
+
+  .summary { margin-top: 28px; padding: 0 4px; }
+  .summary-row { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; }
+  .summary-row.total { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+  .summary-row.total .price { color: var(--accent); font-size: 18px; }
+  .summary-row.detail { font-size: 13px; color: var(--text-secondary); }
+
+  .pay-btn {
+    display: block; width: 100%; margin-top: 28px;
+    padding: 16px; background: var(--accent); color: white;
+    border: none; border-radius: var(--radius); font-family: inherit;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+
+  .calendar-note {
+    text-align: center; font-size: 12.5px; color: var(--text-secondary);
+    margin-top: 20px; padding-top: 16px; border-top: 1px solid #e8e8e8;
+  }
+
+  footer { text-align: center; padding: 32px; font-size: 13px; color: #aaa; }
+
+  .variant-selector {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 1px solid #e5e5e5;
+    padding: 12px 20px; display: flex; align-items: center;
+    justify-content: center; gap: 8px; z-index: 100;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+  }
+  .variant-selector label { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-right: 4px; }
+  .variant-btn {
+    padding: 7px 16px; border: 1.5px solid #ddd; border-radius: 20px;
+    background: white; font-family: inherit; font-size: 13px; font-weight: 600;
+    color: var(--text-secondary); cursor: pointer; transition: all 0.2s;
+  }
+  .variant-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .variant-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+  .variant { display: none; }
+  .variant.active { display: block; }
+
+  .combo-offer {
+    background: linear-gradient(135deg, #e8f7fa, #e8f5e9);
+    border: 1px solid rgba(0,184,217,0.2); border-radius: var(--radius);
+    padding: 16px 20px; margin-top: 12px;
+  }
+  .combo-offer .combo-title { font-size: 14px; font-weight: 700; color: var(--info-text); margin-bottom: 6px; }
+  .combo-offer .combo-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+  .combo-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 20px; background: var(--accent); color: white;
+    border: none; border-radius: 6px; font-family: inherit;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+</style>
+</head>
+<body data-billing="unpaid">
+
+<header>
+  <div class="logo">kassa<sup>24</sup> business</div>
+  <div class="header-right">
+    <div class="lang-switch"><button class="active">Рус</button><button>Каз</button></div>
+    <div class="user-info"><div class="name">Неверова Юлия</div><div class="logout">Выйти</div></div>
+  </div>
+</header>
+
+<button class="back-btn">&larr; Назад</button>
+
+<main>
+  <h1>Оплата кассы</h1>
+
+  <!-- ============ A: Баннер ============ -->
+  <div class="variant active" id="variantA">
+    <div class="status-bar">
+      <div>&#9888;&#65039; Касса не оплачена</div>
+      <div>Добавляется: 6&nbsp;месяцев (март — август)</div>
+    </div>
+
+    <div class="warning-banner">
+      <span class="warn-icon">&#9888;</span>
+      <span>Оплата действует за календарный месяц (с 1 по последнее число)</span>
+    </div>
+
+    <div class="section-label">Выберите тариф</div>
+
+    <div class="tariff-card">
+      <span class="tariff-name">Стандарт</span>
+      <div class="tariff-price">10 &#x20B8; / месяц</div>
+      <div class="tariff-period">1 месяц</div>
+      <div class="tariff-note">За 1 кассу</div>
+    </div>
+    <div class="tariff-card">
+      <span class="tariff-name">Хит</span>
+      <div class="tariff-price">3200 &#x20B8; / месяц</div>
+      <div class="tariff-period">3 месяца</div>
+      <div class="tariff-note">Экономия 0&#x20B8; за кассу</div>
+    </div>
+    <div class="tariff-card selected">
+      <span class="tariff-name">Комфорт</span>
+      <div class="tariff-price">3100 &#x20B8; / месяц</div>
+      <div class="tariff-period">6 месяцев</div>
+      <div class="tariff-note">Экономия 0&#x20B8; за кассу</div>
+    </div>
+    <div class="tariff-card">
+      <span class="tariff-name">Смарт</span>
+      <div class="tariff-price">2950 &#x20B8; / месяц</div>
+      <div class="tariff-period">12 месяцев</div>
+      <div class="tariff-note">Экономия 0&#x20B8; за кассу</div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-row total"><span>Предварительный итог</span><span class="price">18 600&#x20B8;</span></div>
+      <div class="summary-row detail"><span>Лицензия комфорт</span><span>За 1 кассу</span></div>
+      <div class="summary-row detail"><span>Будет оплачено по</span><span>31 августа 2026 (184 дня)</span></div>
+      <div class="summary-row detail"><span>Экономия</span><span>0&#x20B8;</span></div>
+    </div>
+    <button class="pay-btn">Продолжить</button>
+  </div>
+
+  <!-- ============ B: Теги с реальными периодами ============ -->
+  <div class="variant" id="variantB">
+    <div class="status-bar">
+      <div>&#9888;&#65039; Касса не оплачена</div>
+      <div>Добавляется: 6&nbsp;месяцев (март — август)</div>
+    </div>
+
+    <div class="section-label">Выберите тариф</div>
+
+    <div class="tariff-card">
+      <span class="tariff-name">Стандарт <span class="period-tag">по 31 марта (3 дня)</span></span>
+      <div class="tariff-price">10 &#x20B8; / месяц</div>
+      <div class="tariff-period">1 месяц</div>
+      <div class="tariff-note">За 1 кассу</div>
+    </div>
+    <div class="tariff-card">
+      <span class="tariff-name">Хит <span class="period-tag">по 31 мая (93 дня)</span></span>
+      <div class="tariff-price">3200 &#x20B8; / месяц</div>
+      <div class="tariff-period">3 месяца</div>
+      <div class="tariff-note">Экономия 0&#x20B8; за кассу</div>
+    </div>
+    <div class="tariff-card selected">
+      <span class="tariff-name">Комфорт <span class="period-tag">по 31 авг (184 дня)</span></span>
+      <div class="tariff-price">3100 &#x20B8; / месяц</div>
+      <div class="tariff-period">6 месяцев</div>
+      <div class="tariff-note">Экономия 0&#x20B8; за кассу</div>
+    </div>
+    <div class="tariff-card">
+      <span class="tariff-name">Смарт <span class="period-tag">по 28 фев '27 (365 дней)</span></span>
+      <div class="tariff-price">2950 &#x20B8; / месяц</div>
+      <div class="tariff-period">12 месяцев</div>
+      <div class="tariff-note">Экономия 0&#x20B8; за кассу</div>
+    </div>
+
+    <div class="summary">
+      <div class="summary-row total"><span>Предварительный итог</span><span class="price">18 600&#x20B8;</span></div>
+      <div class="summary-row detail"><span>Лицензия комфорт</span><span>За 1 кассу</span></div>
+      <div class="summary-row detail"><span>Будет оплачено по</span><span>31 августа 2026 (184 дня)</span></div>
+      <div class="summary-row detail"><span>Экономия</span><span>0&#x20B8;</span></div>
+    </div>
+    <button class="pay-btn">Продолжить</button>
+  </div>
+
+</main>
+
+<footer>Онлайн-касса от Kassa24 Business &copy; 2026</footer>
+
+<div class="variant-selector">
+  <label>Вариант:</label>
+  <button class="variant-btn active" onclick="showVariant('A')">A - Баннер</button>
+  <button class="variant-btn" onclick="showVariant('B')">B - Теги</button>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

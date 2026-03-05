@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kassa24 Business - Переход на новое приложение</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .phone-frame {
+    width: 393px;
+    max-width: 100%;
+    background: #f5f5f0;
+    border-radius: 50px;
+    padding: 12px;
+    box-shadow:
+      0 0 0 2px #2a2a2a,
+      0 30px 80px rgba(0,0,0,0.5),
+      0 10px 30px rgba(0,0,0,0.3);
+    position: relative;
+  }
+
+  .phone-screen {
+    background: #ffffff;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px 10px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .status-bar .time { letter-spacing: 0.5px; }
+
+  .dynamic-island {
+    width: 120px;
+    height: 34px;
+    background: #000;
+    border-radius: 20px;
+    margin: 0 auto;
+  }
+
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .status-icons svg { width: 18px; height: 18px; }
+
+  /* Close button */
+  .close-btn {
+    position: absolute;
+    top: 62px;
+    right: 24px;
+    width: 30px;
+    height: 30px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    border: none;
+    transition: background 0.2s;
+  }
+
+  .close-btn:hover { background: rgba(0,0,0,0.1); }
+
+  .close-btn svg {
+    width: 14px;
+    height: 14px;
+    stroke: #666;
+    stroke-width: 2.5;
+  }
+
+  /* Content */
+  .content {
+    padding: 20px 28px 28px;
+    text-align: center;
+  }
+
+  /* Logo */
+  .logo-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .logo-icon {
+    width: 52px;
+    height: 52px;
+    position: relative;
+  }
+
+  .logo-icon .shield {
+    fill: #FFD700;
+    stroke: #1a1a1a;
+    stroke-width: 1;
+  }
+
+  .logo-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+  }
+
+  .logo-text span {
+    position: relative;
+    top: -6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-left: 1px;
+  }
+
+  .logo-text .business {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: lowercase;
+    color: #555;
+    position: relative;
+    top: 0;
+    margin-left: 0;
+  }
+
+  /* Heading */
+  .heading {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+
+  /* Description */
+  .description {
+    font-size: 15px;
+    line-height: 1.55;
+    color: #555;
+    margin-bottom: 24px;
+    padding: 0 4px;
+  }
+
+  .description strong {
+    color: #1a1a1a;
+    font-weight: 700;
+  }
+
+  /* Promo badge */
+  .promo-block {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .promo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFF9E6;
+    border: 1.5px solid #FFE68A;
+    border-radius: 30px;
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    50% { box-shadow: 0 0 16px 4px rgba(255, 215, 0, 0.15); }
+  }
+
+  .promo-badge .gift { font-size: 20px; }
+
+  .promo-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: #22C1E0;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .promo-link:hover {
+    color: #1AADCA;
+    text-decoration: underline;
+  }
+
+  /* Credentials card */
+  .credentials-card {
+    background: #f8f8f6;
+    border: 1.5px solid #e8e8e4;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .credentials-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 16px;
+  }
+
+  .credential-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .credential-row:last-child { margin-bottom: 0; }
+
+  .credential-info { flex: 1; }
+
+  .credential-info .label {
+    font-size: 12px;
+    color: #aaa;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .credential-info .value {
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a1a;
+    letter-spacing: 0.5px;
+  }
+
+  .credential-info .value.masked { letter-spacing: 3px; }
+
+  .copy-btn {
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: 1.5px solid #e0e0dc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+
+  .copy-btn:hover {
+    background: #f0f0ec;
+    border-color: #ccc;
+  }
+
+  .copy-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #888;
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  /* Download button */
+  .download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px;
+    background: #22C1E0;
+    color: #fff;
+    font-family: 'Manrope', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: -0.2px;
+    margin-bottom: 12px;
+  }
+
+  .download-btn:hover {
+    background: #1AADCA;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(34, 193, 224, 0.3);
+  }
+
+  .download-btn:active {
+    transform: translateY(0);
+  }
+
+  .download-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: #fff;
+    stroke-width: 2.2;
+    fill: none;
+  }
+
+  /* WhatsApp button */
+  .whatsapp-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 16px 20px;
+    background: #f0faf0;
+    border: 1.5px solid #d4efd4;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .whatsapp-btn:hover {
+    background: #e6f5e6;
+    border-color: #b8e0b8;
+  }
+
+  .wa-icon {
+    width: 40px;
+    height: 40px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .wa-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: #fff;
+  }
+
+  .wa-text {
+    flex: 1;
+    margin-left: 14px;
+    text-align: left;
+  }
+
+  .wa-text .line1 {
+    font-size: 14px;
+    color: #777;
+    font-weight: 500;
+  }
+
+  .wa-text .line2 {
+    font-size: 15px;
+    color: #25D366;
+    font-weight: 700;
+  }
+
+  .wa-arrow {
+    width: 20px;
+    height: 20px;
+    stroke: #25D366;
+    stroke-width: 2.5;
+    fill: none;
+    flex-shrink: 0;
+  }
+
+  /* Home indicator */
+  .home-indicator {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 8px;
+  }
+
+  .home-indicator .bar {
+    width: 134px;
+    height: 5px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    opacity: 0.2;
+  }
+
+  /* Animations */
+  .content > * {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fade-up 0.5s ease forwards;
+  }
+
+  .content > *:nth-child(1) { animation-delay: 0.1s; }
+  .content > *:nth-child(2) { animation-delay: 0.2s; }
+  .content > *:nth-child(3) { animation-delay: 0.3s; }
+  .content > *:nth-child(4) { animation-delay: 0.4s; }
+  .content > *:nth-child(5) { animation-delay: 0.5s; }
+  .content > *:nth-child(6) { animation-delay: 0.6s; }
+  .content > *:nth-child(7) { animation-delay: 0.7s; }
+
+  @keyframes fade-up {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <div class="phone-screen">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time">11:13</span>
+      <div class="dynamic-island"></div>
+      <div class="status-icons">
+        <svg viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="3" fill="#1a1a1a"/>
+          <circle cx="4" cy="12" r="3" fill="#1a1a1a"/>
+          <circle cx="20" cy="12" r="3" fill="#1a1a1a"/>
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M1 9l4-4m0 0l4 4M5 5v8" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 12 12)"/>
+          <path d="M5.7 15C4 16.5 3 18.7 3 21h18c0-2.3-1-4.5-2.7-6" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <!-- WiFi -->
+        <svg viewBox="0 0 20 20" fill="#1a1a1a">
+          <path d="M10 15.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-4.95-3.05a7 7 0 019.9 0l-1.42 1.42a5 5 0 00-7.07 0L5.05 12.45zm-2.83-2.83a10.97 10.97 0 0115.56 0l-1.42 1.42a9 9 0 00-12.73 0L2.22 9.62z"/>
+        </svg>
+        <!-- Battery -->
+        <svg viewBox="0 0 28 14" fill="none">
+          <rect x="0.5" y="0.5" width="23" height="13" rx="3" stroke="#1a1a1a" stroke-width="1.2"/>
+          <rect x="2" y="2" width="20" height="10" rx="2" fill="#1a1a1a"/>
+          <path d="M25 5v4a2 2 0 000-4z" fill="#1a1a1a"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Close -->
+    <button class="close-btn">
+      <svg viewBox="0 0 14 14"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+    </button>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- Logo -->
+      <div class="logo-block">
+        <svg class="logo-icon" viewBox="0 0 52 52">
+          <path class="shield" d="M26 4L6 14v14c0 12.5 8.5 22 20 26 11.5-4 20-13.5 20-26V14L26 4z"/>
+          <text x="26" y="34" text-anchor="middle" font-family="Manrope, sans-serif" font-size="22" font-weight="800" fill="#1a1a1a">T</text>
+        </svg>
+        <div class="logo-text">
+          kassa<span>24</span>
+          <span class="business">business</span>
+        </div>
+      </div>
+
+      <!-- Heading -->
+      <h1 class="heading">С 1 апреля это приложение перестанет работать</h1>
+
+      <!-- Description -->
+      <p class="description">
+        Мы переходим на новое приложение - <strong>Онлайн Касса24</strong>. Все ваши данные, чеки
+        и Z-отчеты сохранятся. Скачайте приложение и войдите с вашим текущим логином и паролем.
+      </p>
+
+      <!-- Promo -->
+      <p class="promo-badge">
+        В новой кассе стоимость тарифа и способ оплаты меняется <br>
+        ⚠️ Внимание: теперь вам не нужно оплачивать ОФД!
+      </p>
+      <a href="#" class="promo-link">Подробнее о тарифах</a>
+
+      <!-- Credentials -->
+      <div class="credentials-card">
+        <div class="credentials-label">Ваши данные для входа</div>
+        <div class="credential-row">
+          <div class="credential-info">
+            <div class="label">Логин</div>
+            <div class="value">+7 700 •••• 99</div>
+          </div>
+          <button class="copy-btn" title="Копировать">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <div class="credential-row">
+          <div class="credential-info">
+            <div class="label">Пароль</div>
+            <div class="value masked">••••••••</div>
+          </div>
+          <button class="copy-btn" title="Копировать">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Download -->
+      <button class="download-btn">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Скачать Онлайн Касса24
+      </button>
+
+      <!-- WhatsApp -->
+      <a href="#" class="whatsapp-btn">
+        <div class="wa-icon">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.553 4.117 1.523 5.852L.06 23.706a.5.5 0 00.612.612l5.854-1.463A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.94 9.94 0 01-5.38-1.572l-.386-.23-3.475.868.868-3.475-.23-.386A9.94 9.94 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        </div>
+        <div class="wa-text">
+          <div class="line1">Есть вопросы по переходу?</div>
+          <div class="line2">Напишите нам в WhatsApp</div>
+        </div>
+        <svg class="wa-arrow" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="home-indicator">
+      <div class="bar"></div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

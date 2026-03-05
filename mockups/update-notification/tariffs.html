@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kassa24 - Тарифы</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .phone-frame {
+    width: 393px;
+    max-width: 100%;
+    background: #f5f5f0;
+    border-radius: 50px;
+    padding: 12px;
+    box-shadow:
+      0 0 0 2px #2a2a2a,
+      0 30px 80px rgba(0,0,0,0.5),
+      0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .phone-screen {
+    background: #f4f4f0;
+    border-radius: 40px;
+    overflow: hidden;
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px 10px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .dynamic-island {
+    width: 120px;
+    height: 34px;
+    background: #000;
+    border-radius: 20px;
+  }
+
+  .status-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .status-icons svg { width: 18px; height: 18px; }
+
+  /* Content */
+  .content {
+    padding: 12px 20px 28px;
+  }
+
+  /* Header */
+  .section-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+    padding: 0 4px;
+  }
+
+  .section-subtitle {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #888;
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+
+  .section-subtitle strong {
+    color: #1a1a1a;
+    font-weight: 700;
+  }
+
+  /* Tariff cards */
+  .tariff-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tariff-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1.5px solid transparent;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tariff-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: #22C1E0;
+    border-radius: 16px 0 0 16px;
+    transition: width 0.25s ease;
+  }
+
+  .tariff-card:hover::before { width: 4px; }
+  .tariff-card:hover {
+    border-color: #e0f6fb;
+    box-shadow: 0 4px 16px rgba(34, 193, 224, 0.08);
+  }
+
+  .tariff-card.best {
+    border-color: #22C1E0;
+    background: linear-gradient(135deg, #f8fdfe, #eefbfd);
+  }
+
+  .tariff-card.best::before {
+    width: 4px;
+  }
+
+  .tariff-left {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tariff-name {
+    font-size: 17px;
+    font-weight: 800;
+    color: #1a1a1a;
+  }
+
+  .tariff-period {
+    font-size: 13px;
+    font-weight: 500;
+    color: #aaa;
+  }
+
+  .tariff-right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tariff-price {
+    font-size: 17px;
+    font-weight: 800;
+    color: #1a1a1a;
+    white-space: nowrap;
+  }
+
+  .tariff-card.best .tariff-price { color: #1399b3; }
+
+  .tariff-saving {
+    font-size: 12px;
+    font-weight: 600;
+    color: #aaa;
+  }
+
+  .tariff-saving.has-value {
+    color: #22C1E0;
+  }
+
+  /* Best badge */
+  .best-badge {
+    position: absolute;
+    top: -1px;
+    right: 16px;
+    background: #22C1E0;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 0 0 8px 8px;
+  }
+
+  /* OFD note */
+  .ofd-note-2 {
+    margin-top: 16px;
+    align-items: center;
+    gap: 8px;
+    background: #fdfff4;
+    border: 1.5px solid #d4efd0;
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+
+  .ofd-note {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #eef9ec;
+    border: 1.5px solid #d4efd0;
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+
+  .ofd-note .check-icon {
+    width: 22px;
+    height: 22px;
+    background: #4CAF50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ofd-note .check-icon svg {
+    width: 13px;
+    height: 13px;
+    stroke: #fff;
+    stroke-width: 3;
+    fill: none;
+  }
+
+  .ofd-note .note-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #3a7d32;
+  }
+
+  /* Home indicator */
+  .home-indicator {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 8px;
+  }
+
+  .home-indicator .bar {
+    width: 134px;
+    height: 5px;
+    background: #1a1a1a;
+    border-radius: 3px;
+    opacity: 0.2;
+  }
+
+  /* Animations */
+  .tariff-card,
+  .section-title,
+  .section-subtitle,
+  .ofd-note {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fade-up 0.45s ease forwards;
+  }
+
+  .section-title { animation-delay: 0.05s; }
+  .section-subtitle { animation-delay: 0.1s; }
+  .tariff-card:nth-child(1) { animation-delay: 0.15s; }
+  .tariff-card:nth-child(2) { animation-delay: 0.25s; }
+  .tariff-card:nth-child(3) { animation-delay: 0.35s; }
+  .tariff-card:nth-child(4) { animation-delay: 0.45s; }
+  .ofd-note { animation-delay: 0.55s; }
+
+  @keyframes fade-up {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="phone-frame">
+  <br class="phone-screen">
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time">11:13</span>
+      <div class="dynamic-island"></div>
+      <div class="status-icons">
+        <svg viewBox="0 0 20 20" fill="#1a1a1a">
+          <path d="M10 15.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm-4.95-3.05a7 7 0 019.9 0l-1.42 1.42a5 5 0 00-7.07 0L5.05 12.45zm-2.83-2.83a10.97 10.97 0 0115.56 0l-1.42 1.42a9 9 0 00-12.73 0L2.22 9.62z"/>
+        </svg>
+        <svg viewBox="0 0 28 14" fill="none">
+          <rect x="0.5" y="0.5" width="23" height="13" rx="3" stroke="#1a1a1a" stroke-width="1.2"/>
+          <rect x="2" y="2" width="20" height="10" rx="2" fill="#1a1a1a"/>
+          <path d="M25 5v4a2 2 0 000-4z" fill="#1a1a1a"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <h1 class="section-title">Наши тарифы</h1>
+      <p class="ofd-note-2">
+        Внимание: Оплата тарифа производится в самом приложении <strong>Онлайн-Касса24</strong>.
+      </p>
+
+      <!-- OFD included -->
+      <div class="ofd-note">
+        <span class="check-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="note-text">В стоимость тарифов входит ОФД</span>
+      </div></br>
+
+      <div class="tariff-list">
+
+        <!-- Стандарт -->
+        <div class="tariff-card">
+          <div class="tariff-left">
+            <div class="tariff-name">Стандарт</div>
+            <div class="tariff-period">1 месяц</div>
+          </div>
+          <div class="tariff-right">
+            <div class="tariff-price">3 300 ₸ / месяц</div>
+            <div class="tariff-saving">За 1 кассу</div>
+          </div>
+        </div>
+
+        <!-- Хит -->
+        <div class="tariff-card best">
+          <div class="best-badge">Выгодно</div>
+          <div class="tariff-left">
+            <div class="tariff-name">Хит</div>
+            <div class="tariff-period">3 месяца</div>
+          </div>
+          <div class="tariff-right">
+            <div class="tariff-price">3 200 ₸ / месяц</div>
+            <div class="tariff-saving has-value">Экономия 300₸ за кассу</div>
+          </div>
+        </div>
+
+        <!-- Комфорт -->
+        <div class="tariff-card">
+          <div class="tariff-left">
+            <div class="tariff-name">Комфорт</div>
+            <div class="tariff-period">6 месяцев</div>
+          </div>
+          <div class="tariff-right">
+            <div class="tariff-price">3 100 ₸ / месяц</div>
+            <div class="tariff-saving has-value">Экономия 1 200₸ за кассу</div>
+          </div>
+        </div>
+
+        <!-- Смарт -->
+        <div class="tariff-card">
+          <div class="tariff-left">
+            <div class="tariff-name">Смарт</div>
+            <div class="tariff-period">12 месяцев</div>
+          </div>
+          <div class="tariff-right">
+            <div class="tariff-price">2 950 ₸ / месяц</div>
+            <div class="tariff-saving has-value">Экономия 4 200₸ за кассу</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Home indicator -->
+    <div class="home-indicator">
+      <div class="bar"></div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
